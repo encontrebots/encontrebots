@@ -11,6 +11,23 @@ router.get('/callback', passport.authenticate('discord', { failureRedirect: '/' 
 	else {res.redirect('/dashboard');}
 });
 
+router.post('/bots/edit', async (req, res) => {
+	const botDB = await bot.db.get(`bot-${req.body.botid}`);
+	const user = await bot.getRESTUser(req.body.botid).catch(() => {
+		return res.redirect('/bots/add?type=botnotfound');
+	});
+	if (!botDB) {
+		await res.redirect('/');
+	}
+	botDB.avatar = user.avatarURL;
+	botDB.descc = req.body.descc;
+	botDB.descl = req.body.descl;
+	botDB.prefix = req.body.prefix;
+	botDB.discord = req.body.support;
+	await bot.db.set(`bot-${req.body.botid}`, botDB);
+	await res.redirect(`/bots/${req.body.botid}/edit?type=botedited`);
+});
+
 router.post('/bots/add', async (req, res) => {
 	const user = await bot.getRESTUser(req.body.botid).catch(() => {
 		return res.redirect('/bots/add?type=botnotfound');
@@ -34,6 +51,7 @@ router.post('/bots/add', async (req, res) => {
 				tags: req.body.tags,
 				prefix: req.body.prefix,
 				owner: req.session.passport?.user || null,
+				discord: req.body.support,
 				status: 'pending',
 				date: Date.now(),
 			});
@@ -48,6 +66,7 @@ router.post('/bots/add', async (req, res) => {
 						tags: req.body.tags,
 						prefix: req.body.prefix,
 						owner: req.session.passport?.user || null,
+						discord: req.body.support,
 						status: 'pending',
 						date: Date.now(),
 					}
@@ -63,6 +82,7 @@ router.post('/bots/add', async (req, res) => {
 					tags: req.body.tags,
 					prefix: req.body.prefix,
 					owner: req.session.passport?.user || null,
+					discord: req.body.support,
 					status: 'pending',
 					date: Date.now(),
 				});

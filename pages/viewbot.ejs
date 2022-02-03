@@ -25,37 +25,45 @@
                     <hr>
                     <div class="field has-addons">
                         <p class="control">
-                            <button class="button is-success">
-                                <span class="icon is-small">
-                                    <i class="fas fa-plus"></i>
-                                </span>
-                                <span>Adicionar</span>
-                            </button>
+                            <a href="/bots/<%= boti.id %>/add">
+                                <button class="button is-success">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <span>Adicionar</span>
+                                </button>
+                            </a>
                         </p>
                         <p class="control">
-                            <button class="button is-link">
-                                <span class="icon is-small">
-                                    <i class="fas fa-paper-plane"></i>
-                                </span>
-                                <span>Suporte</span>
-                            </button>
+                            <a href="/bots/<%= boti.id %>/discord">
+                                <button class="button is-link">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </span>
+                                    <span>Suporte</span>
+                                </button>
+                            </a>
                         </p>
                         <p class="control">
-                            <button class="button is-link">
-                                <span class="icon is-small">
-                                    <i class="fas fa-window-restore"></i>
-                                </span>
-                                <span>Website</span>
-                            </button>
+                            <a href="/bots/<%= boti.id %>/website">
+                                <button class="button is-link">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-window-restore"></i>
+                                    </span>
+                                    <span>Website</span>
+                                </button>
+                            </a>
                         </p>
                         <% if (botOwner) { %>
                         <p class="control">
-                            <button class="button is-link">
-                                <span class="icon is-small">
-                                    <i class="fas fa-paper-plane"></i>
-                                </span>
-                                <span>Editar</span>
-                            </button>
+                            <a href="/bots/<%= boti.id %>/edit">
+                                <button class="button is-warning">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-clipboard-list"></i>
+                                    </span>
+                                    <span>Editar</span>
+                                </button>
+                            </a>
                         </p>
                         <% } %>
                     </div>

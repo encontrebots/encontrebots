@@ -29,8 +29,8 @@ router.post('/bots/add', async (req, res) => {
 				id: req.body.botid,
 				name: user.username,
 				avatar: user.avatarURL,
-				descc: req.body.descc,
-				descl: req.body.descl,
+				descc: req.body.descc || 'Um bot incrivel com funcionalidades únicas',
+				descl: req.body.descl || `Um bot incrivel com funcionalidades únicas, conheça ${user.username}`,
 				tags: req.body.tags,
 				prefix: req.body.prefix,
 				owner: req.session.passport?.user || null,
@@ -43,8 +43,8 @@ router.post('/bots/add', async (req, res) => {
 						id: req.body.botid,
 						name: user.username,
 						avatar: user.avatarURL,
-						descc: req.body.descc,
-						descl: req.body.descl,
+						descc: req.body.descc || 'Um bot incrivel com funcionalidades únicas',
+						descl: req.body.descl || `Um bot incrivel com funcionalidades únicas, conheça ${user.username}`,
 						tags: req.body.tags,
 						prefix: req.body.prefix,
 						owner: req.session.passport?.user || null,
@@ -56,8 +56,10 @@ router.post('/bots/add', async (req, res) => {
 			else {
 				await bot.db.push('bots', {
 					id: req.body.botid,
-					descc: req.body.descc,
-					descl: req.body.descl,
+					name: user.username,
+					avatar: user.avatarURL,
+					descc: req.body.descc || 'Um bot incrivel com funcionalidades únicas',
+					descl: req.body.descl || `Um bot incrivel com funcionalidades únicas, conheça ${user.username}`,
 					tags: req.body.tags,
 					prefix: req.body.prefix,
 					owner: req.session.passport?.user || null,
@@ -67,6 +69,10 @@ router.post('/bots/add', async (req, res) => {
 			}
 		}
 		const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
+		const devDB = await bot.db.get(`developer-${req.session.passport?.user.id}`);
+		if (!devDB) {
+			await bot.db.set(`developer-${req.session.passport?.user.id}`, true);
+		}
 		channel.createMessage(`:white_check_mark: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi adicionado com sucesso. | <@&${config.discord.guild.roles.verifier}>`);
 		setTimeout(() => {
 			res.redirect('/?type=botadded');

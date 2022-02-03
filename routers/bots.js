@@ -28,15 +28,8 @@ router.get('/:id/add', async (req, res) => {
 	res.redirect(`https://discord.com/oauth2/authorize?client_id=${req.params.id}&permissions=8&scope=bot%20applications.commands`);
 });
 
-router.get('/add', async (req, res) => {
-	if (!req.session.passport?.user) {
-		res.redirect('/');
-	}
-	res.render('addbot', {
-		bot: bot,
-		tags: config.tags,
-		user: req.session.passport?.user || null,
-	});
+router.get('/:id/edit', async (req, res) => {
+	res.redirect(`https://discord.com/oauth2/authorize?client_id=${req.params.id}&permissions=8&scope=bot%20applications.commands`);
 });
 
 module.exports = router;

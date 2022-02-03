@@ -24,5 +24,9 @@ bot.on('guildMemberAdd', async (guild, member) => {
 	}
 });
 
+bot.on('disconnect', async () => {
+	await bot.connect();
+});
+
 bot.connect();
 module.exports = bot;

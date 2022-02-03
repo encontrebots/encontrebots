@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <%- include('./partials/head'); %>
+    </head>
+    <body>
+        <%- include('./partials/navbar'); %>
+        <div class="hero-body">
+            <center>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th><abbr title="Position">Nome</abbr></th>
+                        <th><abbr title="Played">ID</abbr></th>
+                        <th><abbr title="Won">Prefixo</abbr></th>
+                        <th><abbr title="Drawn">Aprovar</abbr></th>
+                        <th><abbr title="Lost">Reprovar</abbr></th>
+                      </tr>
+                    </thead>
+                    <tfoot>
+                        <% bots.forEach((bot) => { %>
+                            <tr>
+                                <th><abbr title="Nome"><%= bot.name %></abbr></th>
+                                <th><abbr title="ID"><%= bot.id %></abbr></th>
+                                <th><abbr title="Prefixo"><%= bot.prefix %></abbr></th>
+                                <form action="/api/bots/<%= bot.id %>/approve" method="post">
+                                    <th><abbr title="Aprovar"><button type="submit" class="button is-success">Aprovar</button></abbr></th>
+                                </form>
+                                <form action="/api/bots/<%= bot.id %>/deny" method="post">
+                                    <th><abbr title="Reprovar"><button type="submit" class="button is-danger">Reprovar</button></abbr></th>
+                                </form>
+                              </tr>
+                        <% }); %>
+                    </tfoot>
+                  </table>
+            </center>
+        </div>
+        <%- include('./partials/footer'); %>
+    </body>
+</html>

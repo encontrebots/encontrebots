@@ -36,6 +36,26 @@ router.post('/bots/edit', async (req, res) => {
 	channel.createMessage(`:white_check_mark: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi editado com sucesso.`);
 });
 
+router.post('/bots/:id/approve', async (req, res) => {
+	const botDB = await bot.db.get(`bot-${req.params.id}`);
+	botDB.status = 'approved';
+	await bot.db.set(`bot-${req.params.id}`, botDB);
+	const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
+	const user = await bot.getRESTUser(req.params.id);
+	channel.createMessage(`:white_check_mark: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi aprovado. [<@${req.session.passport?.user.id}>].`);
+	res.redirect('/queue?type=approved');
+});
+
+router.post('/bots/:id/deny', async (req, res) => {
+	const botDB = await bot.db.get(`bot-${req.params.id}`);
+	await bot.db.pull('bots', botDB);
+	await bot.db.delete(`bot-${req.params.id}`);
+	const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
+	const user = await bot.getRESTUser(req.params.id);
+	channel.createMessage(`:x: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi reprovado. [<@${req.session.passport?.user.id}>].`);
+	res.redirect('/queue?type=reproved');
+});
+
 router.post('/bots/add', async (req, res) => {
 	const user = await bot.getRESTUser(req.body.botid).catch(() => {
 		return res.redirect('/bots/add?type=botnotfound');

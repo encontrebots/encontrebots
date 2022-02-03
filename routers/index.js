@@ -7,9 +7,30 @@ const router = express.Router();
 router.get('/', async (req, res) => {
 	await getStaff(req, bot, config);
 	const bots = await bot.db.get('bots');
+	const botArray = [];
+	bots.forEach((boti) => {
+		if (bot.status === 'pending') return;
+		botArray.push(boti);
+	});
 	res.render('index', {
 		bot: bot,
-		bots: bots,
+		bots: botArray,
+		user: req.session.passport?.user || null,
+	});
+});
+
+router.get('/queue', async (req, res) => {
+	await getStaff(req, bot, config);
+	const bots = await bot.db.get('bots');
+	const botArray = [];
+	bots.forEach((bot) => {
+		if (bot.status === 'pending') {
+			botArray.push(bot);
+		}
+	});
+	res.render('queue', {
+		bot: bot,
+		bots: botArray,
 		user: req.session.passport?.user || null,
 	});
 });
@@ -52,6 +73,10 @@ router.get('/add', async (req, res) => {
 		tags: config.tags,
 		user: req.session.passport?.user || null,
 	});
+});
+
+router.get('/discord', async (req, res) => {
+	res.redirect('https://discord.gg/WJjVSSyFea');
 });
 
 module.exports = router;

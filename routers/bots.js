@@ -27,7 +27,7 @@ router.get('/:id', async (req, res) => {
 	}
 	res.render('viewbot', {
 		boti: botDB,
-		botDesc: markdown.render(botDB.descl.replace(/</g, '').replace(/>/g, '')),
+		botDesc: markdown.render(botDB.descl),
 		bot: bot,
 		botOwner: botOwner,
 		user: req.session.passport?.user || null,

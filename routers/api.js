@@ -40,15 +40,19 @@ router.post('/bots/:id/approve', async (req, res) => {
 	const botDB = await bot.db.get(`bot-${req.params.id}`);
 	botDB.status = 'approved';
 	await bot.db.set(`bot-${req.params.id}`, botDB);
+	await bot.db.approve(req.params.id);
 	const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
 	const user = await bot.getRESTUser(req.params.id);
-	channel.createMessage(`:white_check_mark: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi aprovado. [<@${req.session.passport?.user.id}>].`);
+	channel.createMessage(`:white_check_mark: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi aprovado. [<@${req.session.passport?.user.id}>].`).then(async () => {
+		await bot.db.push('bots', botDB);
+	});
 	res.redirect('/queue?type=approved');
 });
 
 router.post('/bots/:id/deny', async (req, res) => {
-	const botDB = await bot.db.get(`bot-${req.params.id}`);
-	await bot.db.pull('bots', botDB);
+	await bot.db.pull('bots', {
+		id: req.params.id,
+	});
 	await bot.db.delete(`bot-${req.params.id}`);
 	const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
 	const user = await bot.getRESTUser(req.params.id);

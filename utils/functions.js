@@ -1,4 +1,5 @@
 async function getStaff (req, bot, config) {
+	if (!req.session.passport?.user.id) return;
 	const guild = await bot.getRESTGuild(config.discord.guild.id);
 	const member = await guild.getRESTMember(req.session.passport.user.id);
 	let staff;

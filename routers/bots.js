@@ -11,4 +11,15 @@ router.get('/', async (req, res) => {
 	});
 });
 
+router.get('/add', async (req, res) => {
+	await getStaff(req, bot, config);
+	if (!req.session.passport.user) {
+		res.redirect('/');
+	}
+	res.render('addbot', {
+		bot: bot,
+		user: req.session.passport?.user || null,
+	});
+});
+
 module.exports = router;

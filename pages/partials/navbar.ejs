@@ -1,0 +1,74 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+            <img class="avatar" src="<%= bot.user.avatarURL %>" width="28" height="28">
+            <span class="pl-2">
+                Bots de Discord
+            </span>
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+            <a href="/" class="navbar-item">
+                <i class="fas fa-home"></i>&nbsp;Início
+            </a>
+
+            <a href="/discord" class="navbar-item">
+                <i class="fas fa-link"></i>&nbsp;Servidor
+            </a>
+
+            <a href="/bots" class="navbar-item">
+                <i class="fas fa-robot"></i>&nbsp;Bots
+            </a>
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <% if (user) { %>
+                    <div class="dropdown is-active">
+                        <div class="dropdown-trigger">
+                            <button class="button is-info" aria-haspopup="true" aria-controls="dropdown-menu">
+                                <img class="avatar" src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png?size=4096" width="28" height="28"><strong>&nbsp;<%= user.username %>#<%= user.discriminator %></strong>
+                                <span class="icon is-small">
+                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div id="dropdown" class="dropdown-menu has-dropdown is-hidden" id="dropdown-menu" role="menu">
+                            <div class="dropdown-content">
+                                <a href="/@me" class="dropdown-item">
+                                    Perfil
+                                </a>
+                                <a href="/add" class="dropdown-item">
+                                    Adicionar Bot
+                                </a>
+                                <hr class="dropdown-divider">
+                                <a href="/logout" class="dropdown-item">
+                                    Deslogar
+                                </a>
+                                <% if (user.staff) { %>
+                                <a href="/queue" class="dropdown-item">
+                                    Fila
+                                </a>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <% } else { %>
+                    <a href="/login" class="button is-login">
+                        <strong>Login</strong>
+                    </a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

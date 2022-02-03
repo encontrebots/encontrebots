@@ -1,0 +1,8 @@
+.navbar {
+    background-color: #CAF0F8;
+}
+.avatar {
+    border-radius: 50%;
+    max-width: 100px;
+    max-height: 100px;
+}

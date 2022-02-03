@@ -7,6 +7,6 @@ module.exports = (bot) => {
         console.log('[MONGO] Estou pronta !'.yellow);
     });
 
-    db.connect();
     bot.db = db;
+    bot.db.connect();
 }

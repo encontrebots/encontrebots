@@ -54,6 +54,7 @@ app.use(passport.session());
 
 app.use('/', require('./routers/index'));
 app.use('/api', require('./routers/api'));
+app.use('/bots', require('./routers/bots'));
 
 app.listen(PORT, () => {
     require('./bot/bot.js');

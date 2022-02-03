@@ -14,12 +14,20 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
 	await getStaff(req, bot, config);
 	const botDB = await bot.db.get(`bot-${req.params.id}`);
+	let botOwner;
 	if (!botDB) {
 		res.redirect('/');
+	}
+	else if (req.session.passport?.user.id === botDB.owner.id) {
+		botOwner = true;
+	}
+	else if (req.session.passport?.user.id !== botDB.owner.id) {
+		botOwner = false;
 	}
 	res.render('viewbot', {
 		boti: botDB,
 		bot: bot,
+		botOwner: botOwner,
 		user: req.session.passport?.user || null,
 	});
 });

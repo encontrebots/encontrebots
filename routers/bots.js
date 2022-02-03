@@ -3,6 +3,7 @@ const config = require('../config/config.json');
 const getStaff = require('../utils/functions.js');
 const bot = require('../bot/bot.js');
 const router = express.Router();
+const markdown = require('markdown-it')();
 
 router.get('/', async (req, res) => {
 	await getStaff(req, bot, config);
@@ -26,6 +27,7 @@ router.get('/:id', async (req, res) => {
 	}
 	res.render('viewbot', {
 		boti: botDB,
+		botDesc: markdown.render(botDB.descl.replace(/</g, '').replace(/>/g, '')),
 		bot: bot,
 		botOwner: botOwner,
 		user: req.session.passport?.user || null,

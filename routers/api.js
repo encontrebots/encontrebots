@@ -13,6 +13,7 @@ router.get('/callback', passport.authenticate('discord', { failureRedirect: '/' 
 
 router.post('/bots/edit', async (req, res) => {
 	const botDB = await bot.db.get(`bot-${req.body.botid}`);
+	await bot.db.pull('bots', botDB);
 	const user = await bot.getRESTUser(req.body.botid).catch(() => {
 		return res.redirect('/bots/add?type=botnotfound');
 	});
@@ -25,7 +26,14 @@ router.post('/bots/edit', async (req, res) => {
 	botDB.prefix = req.body.prefix;
 	botDB.discord = req.body.support;
 	await bot.db.set(`bot-${req.body.botid}`, botDB);
-	await res.redirect(`/bots/${req.body.botid}/edit?type=botedited`);
+	await bot.db.push('bots', botDB);
+	await res.redirect(`/bots/${req.body.botid}?type=botedited`);
+	const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
+	const devDB = await bot.db.get(`developer-${req.session.passport?.user.id}`);
+	if (!devDB) {
+		await bot.db.set(`developer-${req.session.passport?.user.id}`, true);
+	}
+	channel.createMessage(`:white_check_mark: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi editado com sucesso.`);
 });
 
 router.post('/bots/add', async (req, res) => {

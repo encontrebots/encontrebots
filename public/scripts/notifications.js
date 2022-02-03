@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-disable */
 function getParameterByName (name, url = window.location.href) {
 	name = name.replace(/[\[\]]/g, '\\$&');
 	let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),

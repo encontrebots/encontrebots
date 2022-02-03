@@ -57,6 +57,6 @@ app.use('/api', require('./routers/api'));
 app.use('/bots', require('./routers/bots'));
 
 app.listen(PORT, () => {
-    require('./bot/bot.js');
-    console.log(`[SERVER] Listening on port ${config.port}`.green);
+	require('./bot/bot.js');
+	console.log(`[SERVER] Listening on port ${config.port}`.green);
 });

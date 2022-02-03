@@ -6,7 +6,8 @@
   "author": "yADGithub <2007andrelucaas@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node ."
+    "start": "node .",
+    "lint": "eslint --fix --ext .js --ignore-path .gitignore ."
   },
   "dependencies": {
     "body-parser": "^1.19.1",
@@ -21,5 +22,8 @@
     "passport": "^0.5.2",
     "passport-discord": "^0.1.4",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "eslint": "^8.8.0"
   }
 }

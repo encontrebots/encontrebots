@@ -5,25 +5,25 @@ const bot = require('../bot/bot.js');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-    await getStaff(req, bot, config);
-    res.render('index', {
-        bot: bot,
+	await getStaff(req, bot, config);
+	res.render('index', {
+		bot: bot,
 		user: req.session.passport?.user || null,
 	});
 });
 
 router.get('/@me', async (req, res) => {
-    await getStaff(req, bot, config);
-    res.render('@me', {
-        bot: bot,
+	await getStaff(req, bot, config);
+	res.render('@me', {
+		bot: bot,
 		user: req.session.passport?.user || null,
 	});
 });
 
 router.get('/bots', async (req, res) => {
-    await getStaff(req, bot, config);
-    res.render('bots', {
-        bot: bot,
+	await getStaff(req, bot, config);
+	res.render('bots', {
+		bot: bot,
 		user: req.session.passport?.user || null,
 	});
 });

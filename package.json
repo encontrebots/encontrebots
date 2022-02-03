@@ -1,0 +1,25 @@
+{
+  "name": "botsdediscord",
+  "version": "1.0.0",
+  "main": "app.js",
+  "repository": "https://github.com/andrelucaas/botsddiscord.git",
+  "author": "yADGithub <2007andrelucaas@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "colors": "^1.4.0",
+    "ejs": "^3.1.6",
+    "eris": "^0.16.1",
+    "express": "^4.17.2",
+    "express-session": "^1.17.2",
+    "express-session-level": "^1.0.0",
+    "level": "^7.0.1",
+    "mongoose": "^6.2.0",
+    "passport": "^0.5.2",
+    "passport-discord": "^0.1.4",
+    "path": "^0.12.7"
+  }
+}

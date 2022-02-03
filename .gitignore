@@ -1,0 +1,12 @@
+## NPM FILES
+
+/node_modules
+yarn.lock
+
+## CONFIG FILES
+
+config.json
+
+## SessionStore
+
+/sessions

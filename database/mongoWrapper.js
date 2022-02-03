@@ -299,6 +299,16 @@ class Database extends EventEmitter {
 		return obj ? obj.map((o) => o.remove()) : [];
 	}
 
+	async getBots () {
+		const obj = this.model?.find({ value: { status: 'approved' } });
+		return obj || [];
+	}
+
+	async getUnverified () {
+		const obj = this.model?.find({ value: { status: 'pending' } });
+		return obj || [];
+	}
+
 	get mongo () {
 		return this.model;
 	}

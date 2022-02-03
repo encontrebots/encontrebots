@@ -6,31 +6,31 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
 	await getStaff(req, bot, config);
-	const bots = await bot.db.get('bots');
-	const botArray = [];
-	bots.forEach((boti) => {
-		if (bot.status === 'pending') return;
-		botArray.push(boti);
-	});
+	const bots = await bot.db.getBots();
+	for (let i = 0; i < bots.length; i++) {
+		console.log(bots[i]);
+		const BotRaw = await bot.getRESTUser(bots[i].value.id) || null;
+		bots[i].name = BotRaw.username;
+		bots[i].avatar = BotRaw.avatar;
+	}
 	res.render('index', {
 		bot: bot,
-		bots: botArray,
+		bots: bots,
 		user: req.session.passport?.user || null,
 	});
 });
 
 router.get('/queue', async (req, res) => {
 	await getStaff(req, bot, config);
-	const bots = await bot.db.get('bots');
-	const botArray = [];
-	bots.forEach((bot) => {
-		if (bot.status === 'pending') {
-			botArray.push(bot);
-		}
-	});
+	const bots = await bot.db.getUnverified();
+	for (let i = 0; i < bots.length; i++) {
+		const BotRaw = await bot.getRESTUser(bots[i].value.id) || null;
+		bots[i].name = BotRaw.username;
+		bots[i].avatar = BotRaw.avatar;
+	}
 	res.render('queue', {
 		bot: bot,
-		bots: botArray,
+		bots: bots,
 		user: req.session.passport?.user || null,
 	});
 });

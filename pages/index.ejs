@@ -1,9 +1,52 @@
 <html>
-    <head>
-        <%- include('./partials/head'); %>
-    </head>
-    <body>
-        <%- include('./partials/navbar'); %>
-        <%- include('./partials/footer'); %>
-    </body>
+
+<head>
+    <%- include('./partials/head'); %>
+</head>
+
+<body>
+    <%- include('./partials/navbar'); %>
+    <div class="hero-body">
+        <div class="box">
+            <h1 class="title">
+                Bots de Discord
+            </h1>
+            Encontre bots únicos para seu servidor do discord, de maneira facil!
+        </div>
+        <form>
+            <h1 class="subtitle">
+                Pesquisar
+            </h1>
+            <input class="input" type="text" placeholder="Procure bots!">
+        </form>
+        <div class="columns mt-5 is-multiline is-centered mt-5">
+            <% bots.forEach((botc) => { %>
+            <div style="width: 450px; max-width: 90vw" class="column is-6">
+                <div class="card">
+                    <div class="media">
+                        <div class="media-left">
+                            <figure class="image is-48x48">
+                                <img src="<%= botc.avatar %>" width="48" heigth="48" class="avatar" alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <p class="title is-4"><%= botc.name %></p>
+                    </div>
+                    <div class="card-content">
+                        <div class="content">
+                            <%= botc.descc %>
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <a href="#" class="card-footer-item">Ver</a>
+                        <a href="#" class="card-footer-item">Adicionar</a>
+                        <a href="#" class="card-footer-item">Votar</a>
+                    </footer>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+    <%- include('./partials/footer'); %>
+</body>
+
 </html>

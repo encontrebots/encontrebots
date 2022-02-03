@@ -2,7 +2,8 @@ const config = require('../config/config.json');
 const Eris = require('eris');
 const bot = new Eris.Client(config.discord.clientToken, {
 	restMode: true,
-	intents: ['all']
+	intents: ['all'],
+	defaultImageSize: 4096
 });
 
 bot.eris = Eris;

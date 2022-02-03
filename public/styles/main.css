@@ -9,3 +9,14 @@ html {
     max-width: 100px;
     max-height: 100px;
 }
+.jumbotron {
+    background-color: #23272A;
+    color: #7289DA;
+}
+
+.hero-body {
+    padding: 25px 50px 75px 100px;
+}
+.card {
+    background-color: #90E0EF;
+}

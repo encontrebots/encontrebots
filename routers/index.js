@@ -6,8 +6,10 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
 	await getStaff(req, bot, config);
+	const bots = await bot.db.get('bots');
 	res.render('index', {
 		bot: bot,
+		bots: bots,
 		user: req.session.passport?.user || null,
 	});
 });
@@ -22,8 +24,10 @@ router.get('/@me', async (req, res) => {
 
 router.get('/bots', async (req, res) => {
 	await getStaff(req, bot, config);
+	const bots = await bot.db.get('bots');
 	res.render('bots', {
 		bot: bot,
+		bots: bots,
 		user: req.session.passport?.user || null,
 	});
 });

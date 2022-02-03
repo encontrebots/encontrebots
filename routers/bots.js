@@ -12,12 +12,12 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/add', async (req, res) => {
-	await getStaff(req, bot, config);
-	if (!req.session.passport.user) {
+	if (!req.session.passport?.user) {
 		res.redirect('/');
 	}
 	res.render('addbot', {
 		bot: bot,
+		tags: config.tags,
 		user: req.session.passport?.user || null,
 	});
 });

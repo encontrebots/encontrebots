@@ -1,9 +1,69 @@
 <html>
-    <head>
-        <%- include('./partials/head'); %>
-    </head>
-    <body>
-        <%- include('./partials/navbar'); %>
-        <%- include('./partials/footer'); %>
-    </body>
+
+<head>
+    <%- include('./partials/head'); %>
+</head>
+
+<body>
+    <%- include('./partials/navbar'); %>
+    <br>
+    <div class="hero-body">
+        <div class="box">
+            <h1 class="title">
+                Adicionar Bot
+            </h1>
+            Preencha o formulário para adicionar um bot em nossa botlist.
+        </div>
+        <br>
+        <form action="/api/bots/add" method="post">
+            <div class="field">
+                <label class="label">ID</label>
+                <div class="control">
+                    <input id="botid" name="botid" class="input" type="number" placeholder="ID do bot.">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Descrição Curta</label>
+                <div class="control">
+                    <input id="descc" name="descc" class="input" type="text" placeholder="Um bot revolucionario para discord.">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Descrição Longa</label>
+                <div class="control">
+                    <textarea id="descl" name="descl" class="textarea" placeholder="Um bot revolucionario capaz de fazer XYZABC, com funcionalidades ABC, que tem o site XYZ."></textarea>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Prefixo</label>
+                <div class="control">
+                    <input id="prefix" name="prefix" class="input" type="text" placeholder="b!ping">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Servidor de Suporte</label>
+                <div class="control">
+                    <input id="support" name="support" class="input" type="text" placeholder="discord.gg/WJjVSSyFea">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Tags</label>
+            </div>
+            <div class="select is-multiple">
+                <select id="tags" name="tags" multiple size="8">
+                    <% tags.forEach((tag) => { %>
+                    <option value="<%= tag %>"><%= tag %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-link">Adicionar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <%- include('./partials/footer'); %>
+</body>
+
 </html>

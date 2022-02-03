@@ -25,5 +25,17 @@
     "oauth2": {
         "prompt": "none",
         "scopes": ["identify"]
-    }
+    },
+    "tags": [
+        "levels",
+        "moderação",
+        "social",
+        "diversão",
+        "economia",
+        "diversão",
+        "musica",
+        "anime",
+        "multiidioma",
+        "logs"
+    ]
 }

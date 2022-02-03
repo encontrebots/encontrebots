@@ -1,4 +1,4 @@
-name: zuly
+name: botsdediscord
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  star:
+  bdd:
     runs-on: ${{ matrix.os }}
 
     strategy:

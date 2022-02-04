@@ -11,24 +11,27 @@ router.get('/callback', passport.authenticate('discord', { failureRedirect: '/' 
 	else {res.redirect('/dashboard');}
 });
 
-router.post('/bots/edit', async (req, res) => {
+router.post('/bots/:botid/edit', async (req, res) => {
 	const model = require('../schemas/BotSchema');
-	const botDB = await model.findOne({ bot: req.body.botid });
+	const botDB = await model.findOne({ bot: req.params.botid });
 	if (!botDB) {
-		res.redirect(`/bots/${req.body.botid}/edit?type=unknown`);
+		res.redirect(`/bots/${req.params.botid}/edit?type=unknown`);
 	}
 	else {
-		const bot = await model.findOne({ bot: req.body.botid });
-		bot.bot = botDB.bot;
-		bot.descc = req.body.descc;
-		bot.descl = req.body.descl;
-		bot.prefix = req.body.prefix;
-		bot.support = req.body.support;
-		bot.website = req.body.website;
-		bot.tags = req.body.tags;
-		bot.status = botDB.status || 'pending';
-		bot.save();
+		const botd = await model.findOne({ bot: req.params.botid });
+		botd.bot = botDB.bot;
+		botd.descc = req.body.descc || 'Olá, sou um simples bot para discord!';
+		botd.descl = req.body.descl || '### Olá, seja bem-vindo!\n\nPosso te ajudar com alguma coisa?\n\n- [Me Adicione!](/bots/' + botDB.bot + '/add)\n- [Discord!](/bots/' + botDB.bot + '/discord)';
+		botd.prefix = req.body.prefix;
+		botd.support = req.body.support;
+		botd.website = req.body.website;
+		botd.tags = req.body.tags;
+		botd.status = botDB.status || 'pending';
+		botd.save();
 		res.redirect(`/bots/${botDB.bot}?type=edited`);
+		const user = await bot.getRESTUser(req.params.botid);
+		const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
+		channel.createMessage(`📝 <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi editado com sucesso.`);
 	}
 });
 
@@ -65,8 +68,8 @@ router.post('/bots/add', async (req, res) => {
 		await model.create({
 			bot: req.body.botid,
 			avatar: user.avatarURL,
-			descc: req.body.descc,
-			descl: req.body.descl,
+			descc: req.body.descc || 'Olá, sou um simples bot para discord!',
+			descl: req.body.descl || '### Olá, seja bem-vindo!\n\nPosso te ajudar com alguma coisa?\n\n- [Me Adicione!](/bots/' + req.body.botid + '/add)\n- [Discord!](/bots/' + req.body.botid + '/discord)',
 			prefix: req.body.prefix || '!',
 			support: req.body.support || 'discord.gg/WJjVSSyFea',
 			website: req.body.website || '',

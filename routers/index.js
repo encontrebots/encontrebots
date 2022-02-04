@@ -41,8 +41,19 @@ router.get('/queue', async (req, res) => {
 
 router.get('/@me', async (req, res) => {
 	await getStaff(req, bot, config);
+	if (!req.session.passport?.user.staff) {
+		return res.redirect('/');
+	}
+	const model = require('../schemas/BotSchema');
+	const botd = await model.find({ owner: req.session.passport?.user.id });
+	for (let i = 0; i < botd.length; i++) {
+		const BotRaw = await bot.getRESTUser(botd[i].bot) || null;
+		botd[i].name = BotRaw.username;
+		botd[i].avatar = BotRaw.avatarURL;
+	}
 	res.render('@me', {
 		bot: bot,
+		bots: botd,
 		user: req.session.passport?.user || null,
 	});
 });

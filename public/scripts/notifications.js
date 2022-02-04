@@ -68,3 +68,63 @@ else if (tipo === 'approved') {
 	};
 	toastr.success('O Bot foi aprovado com sucesso!', 'Sucesso!');
 }
+else if (tipo === 'edited') {
+	toastr.options = {
+		'closeButton': true,
+		'debug': false,
+		'newestOnTop': false,
+		'progressBar': true,
+		'positionClass': 'toast-top-right',
+		'preventDuplicates': false,
+		'onclick': null,
+		'showDuration': '300',
+		'hideDuration': '1000',
+		'timeOut': '5000',
+		'extendedTimeOut': '1000',
+		'showEasing': 'swing',
+		'hideEasing': 'linear',
+		'showMethod': 'fadeIn',
+		'hideMethod': 'fadeOut'
+	};
+	toastr.success('O Bot foi editado com sucesso!', 'Sucesso!');
+}
+else if (tipo === 'reproved') {
+	toastr.options = {
+		'closeButton': true,
+		'debug': false,
+		'newestOnTop': false,
+		'progressBar': true,
+		'positionClass': 'toast-top-right',
+		'preventDuplicates': false,
+		'onclick': null,
+		'showDuration': '300',
+		'hideDuration': '1000',
+		'timeOut': '5000',
+		'extendedTimeOut': '1000',
+		'showEasing': 'swing',
+		'hideEasing': 'linear',
+		'showMethod': 'fadeIn',
+		'hideMethod': 'fadeOut'
+	};
+	toastr.success('O Bot foi reprovado com sucesso!', 'Sucesso!');
+}
+else if (tipo === 'already') {
+	toastr.options = {
+		'closeButton': true,
+		'debug': false,
+		'newestOnTop': false,
+		'progressBar': true,
+		'positionClass': 'toast-top-right',
+		'preventDuplicates': false,
+		'onclick': null,
+		'showDuration': '300',
+		'hideDuration': '1000',
+		'timeOut': '5000',
+		'extendedTimeOut': '1000',
+		'showEasing': 'swing',
+		'hideEasing': 'linear',
+		'showMethod': 'fadeIn',
+		'hideMethod': 'fadeOut'
+	};
+	toastr.error('O Bot já se encontra em nosso sistema!', 'Erro!');
+}

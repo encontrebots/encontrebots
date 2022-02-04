@@ -5,11 +5,28 @@ const bot = require('../bot/bot.js');
 const router = express.Router();
 const markdown = require('markdown-it')();
 
-router.get('/', async (req, res) => {
+router.get('/:id/website', async (req, res) => {
 	await getStaff(req, bot, config);
-	res.render('bot', {
-		user: req.session.passport?.user || null,
-	});
+	const model = require('../schemas/BotSchema');
+	const botd = await model.findOne({ bot: req.params.id });
+	if (!botd) {
+		return res.redirect('/');
+	}
+	else {
+		res.redirect(botd.website || '/');
+	}
+});
+
+router.get('/:id/discord', async (req, res) => {
+	await getStaff(req, bot, config);
+	const model = require('../schemas/BotSchema');
+	const botd = await model.findOne({ bot: req.params.id });
+	if (!botd) {
+		return res.redirect('/');
+	}
+	else {
+		res.redirect(botd.support || 'https://discord.gg/WJjVSSyFea');
+	}
 });
 
 router.get('/:id', async (req, res) => {
@@ -39,7 +56,7 @@ router.get('/:id', async (req, res) => {
 });
 
 router.get('/:id/add', async (req, res) => {
-	res.redirect(`https://discord.com/oauth2/authorize?client_id=${req.params.id}&permissions=8&scope=bot%20applications.commands`);
+	res.redirect(`https://discord.com/oauth2/authorize?client_id=${req.params.id}&permissions=-1&scope=bot%20applications.commands`);
 });
 
 router.get('/:id/edit', async (req, res) => {

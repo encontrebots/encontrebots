@@ -12,48 +12,43 @@ router.get('/callback', passport.authenticate('discord', { failureRedirect: '/' 
 });
 
 router.post('/bots/edit', async (req, res) => {
-	const botDB = await bot.db.get(`bot-${req.body.botid}`);
-	await bot.db.pull('bots', botDB);
-	const user = await bot.getRESTUser(req.body.botid).catch(() => {
-		return res.redirect('/bots/add?type=botnotfound');
-	});
+	const model = require('../schemas/BotSchema');
+	const botDB = await model.findOne({ bot: req.body.botid });
 	if (!botDB) {
-		await res.redirect('/');
+		res.redirect(`/bots/${req.body.botid}/edit?type=unknown`);
 	}
-	botDB.avatar = user.avatarURL;
-	botDB.descc = req.body.descc;
-	botDB.descl = req.body.descl;
-	botDB.prefix = req.body.prefix;
-	botDB.discord = req.body.support;
-	await bot.db.set(`bot-${req.body.botid}`, botDB);
-	await bot.db.push('bots', botDB);
-	await res.redirect(`/bots/${req.body.botid}?type=botedited`);
-	const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
-	const devDB = await bot.db.get(`developer-${req.session.passport?.user.id}`);
-	if (!devDB) {
-		await bot.db.set(`developer-${req.session.passport?.user.id}`, true);
+	else {
+		const bot = await model.findOne({ bot: req.body.botid });
+		bot.bot = botDB.bot;
+		bot.descc = req.body.descc;
+		bot.descl = req.body.descl;
+		bot.prefix = req.body.prefix;
+		bot.support = req.body.support;
+		bot.website = req.body.website;
+		bot.tags = req.body.tags;
+		bot.status = botDB.status || 'pending';
+		bot.save();
+		res.redirect(`/bots/${botDB.bot}?type=edited`);
 	}
-	channel.createMessage(`:white_check_mark: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi editado com sucesso.`);
 });
 
 router.post('/bots/:id/approve', async (req, res) => {
-	const botDB = await bot.db.get(`bot-${req.params.id}`);
-	botDB.status = 'approved';
-	await bot.db.set(`bot-${req.params.id}`, botDB);
-	await bot.db.approve(req.params.id);
+	const model = require('../schemas/BotSchema');
+	const data = await model.findOne({ bot: req.params.id });
+	if (data) {
+		data.status = 'verified';
+		data.save();
+		res.redirect('/queue?type=approved');
+	}
 	const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
 	const user = await bot.getRESTUser(req.params.id);
-	channel.createMessage(`:white_check_mark: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi aprovado. [<@${req.session.passport?.user.id}>].`).then(async () => {
-		await bot.db.push('bots', botDB);
-	});
+	channel.createMessage(`:white_check_mark: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi aprovado. [<@${req.session.passport?.user.id}>].`);
 	res.redirect('/queue?type=approved');
 });
 
 router.post('/bots/:id/deny', async (req, res) => {
-	await bot.db.pull('bots', {
-		id: req.params.id,
-	});
-	await bot.db.delete(`bot-${req.params.id}`);
+	const model = require('../schemas/BotSchema');
+	await model.findOneAndDelete({ bot: req.params.id });
 	const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
 	const user = await bot.getRESTUser(req.params.id);
 	channel.createMessage(`:x: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi reprovado. [<@${req.session.passport?.user.id}>].`);
@@ -61,74 +56,34 @@ router.post('/bots/:id/deny', async (req, res) => {
 });
 
 router.post('/bots/add', async (req, res) => {
-	const user = await bot.getRESTUser(req.body.botid).catch(() => {
-		return res.redirect('/bots/add?type=botnotfound');
-	});
-	if (!user.bot) {
-		return res.redirect('/bots/add?type=botnotfound');
+	const model = require('../schemas/BotSchema');
+	const user = await bot.getRESTUser(req.body.botid);
+	if (await model.findOne({ bot: req.body.botid })) {
+		res.redirect('/add?type=alderay');
 	}
 	else {
-		const botDB = await bot.db.get(`bot-${req.body.botid}`);
-		if (botDB) {
-			return res.redirect('/bots/add?type=botalreadyadded');
-		}
-		else {
-			let bots = await bot.db.get('bots');
-			await bot.db.set(`bot-${req.body.botid}`, {
-				id: req.body.botid,
-				name: user.username,
-				avatar: user.avatarURL,
-				descc: req.body.descc || 'Um bot incrivel com funcionalidades únicas',
-				descl: req.body.descl || `Um bot incrivel com funcionalidades únicas, conheça ${user.username}`,
-				tags: req.body.tags,
-				prefix: req.body.prefix,
-				owner: req.session.passport?.user || null,
-				discord: req.body.support,
-				status: 'pending',
-				date: Date.now(),
-			});
-			if (!bots) {
-				await bot.db.set('bots', [
-					{
-						id: req.body.botid,
-						name: user.username,
-						avatar: user.avatarURL,
-						descc: req.body.descc || 'Um bot incrivel com funcionalidades únicas',
-						descl: req.body.descl || `Um bot incrivel com funcionalidades únicas, conheça ${user.username}`,
-						tags: req.body.tags,
-						prefix: req.body.prefix,
-						owner: req.session.passport?.user || null,
-						discord: req.body.support,
-						status: 'pending',
-						date: Date.now(),
-					}
-				]);
+		await model.create({
+			bot: req.body.botid,
+			avatar: user.avatarURL,
+			descc: req.body.descc,
+			descl: req.body.descl,
+			prefix: req.body.prefix || '!',
+			support: req.body.support || 'discord.gg/WJjVSSyFea',
+			website: req.body.website || '',
+			tags: req.body.tags || [],
+			owner: req.session.passport?.user.id,
+			status: 'pending',
+		}).then(async () => {
+			const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
+			const devDB = await bot.db.get(`developer-${req.session.passport?.user.id}`);
+			if (!devDB) {
+				await bot.db.set(`developer-${req.session.passport?.user.id}`, true);
 			}
-			else {
-				await bot.db.push('bots', {
-					id: req.body.botid,
-					name: user.username,
-					avatar: user.avatarURL,
-					descc: req.body.descc || 'Um bot incrivel com funcionalidades únicas',
-					descl: req.body.descl || `Um bot incrivel com funcionalidades únicas, conheça ${user.username}`,
-					tags: req.body.tags,
-					prefix: req.body.prefix,
-					owner: req.session.passport?.user || null,
-					discord: req.body.support,
-					status: 'pending',
-					date: Date.now(),
-				});
-			}
-		}
-		const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
-		const devDB = await bot.db.get(`developer-${req.session.passport?.user.id}`);
-		if (!devDB) {
-			await bot.db.set(`developer-${req.session.passport?.user.id}`, true);
-		}
-		channel.createMessage(`:white_check_mark: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi adicionado com sucesso. | <@&${config.discord.guild.roles.verifier}>`);
-		setTimeout(() => {
-			res.redirect('/?type=botadded');
-		}, 3000);
+			channel.createMessage(`:white_check_mark: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi adicionado com sucesso. | <@&${config.discord.guild.roles.verifier}>`);
+			setTimeout(() => {
+				res.redirect('/add?type=botadded');
+			}, 3000);
+		});
 	}
 });
 

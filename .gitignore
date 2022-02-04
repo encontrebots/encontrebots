@@ -7,6 +7,10 @@ yarn.lock
 
 config.json
 
+## DATABASE
+
+database/db.json
+
 ## SessionStore
 
 /sessions

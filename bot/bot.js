@@ -10,7 +10,9 @@ bot.eris = Eris;
 
 bot.on('ready', async () => {
 	console.log('[BOT] Estou pronto!'.green);
-	require('../database/mongoConnect.js')(bot);
+	require('../database/mongoConnect.js');
+	const DatabaseManager = require('denky-database');
+	bot.db = new DatabaseManager('./database/db.json');
 });
 
 bot.on('guildMemberAdd', async (guild, member) => {

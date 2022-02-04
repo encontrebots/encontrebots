@@ -6,12 +6,12 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
 	await getStaff(req, bot, config);
-	const bots = await bot.db.getBots();
+	const model = require('../schemas/BotSchema');
+	const bots = await model.find({ status: 'verified' });
 	for (let i = 0; i < bots.length; i++) {
-		console.log(bots[i]);
-		const BotRaw = await bot.getRESTUser(bots[i].value.id) || null;
+		const BotRaw = await bot.getRESTUser(bots[i].bot) || null;
 		bots[i].name = BotRaw.username;
-		bots[i].avatar = BotRaw.avatar;
+		bots[i].avatar = BotRaw.avatarURL;
 	}
 	res.render('index', {
 		bot: bot,
@@ -22,9 +22,13 @@ router.get('/', async (req, res) => {
 
 router.get('/queue', async (req, res) => {
 	await getStaff(req, bot, config);
-	const bots = await bot.db.getUnverified();
+	if (!req.session.passport?.user.staff) {
+		return res.redirect('/');
+	}
+	const model = require('../schemas/BotSchema');
+	const bots = await model.find({ status: 'pending' });
 	for (let i = 0; i < bots.length; i++) {
-		const BotRaw = await bot.getRESTUser(bots[i].value.id) || null;
+		const BotRaw = await bot.getRESTUser(bots[i].bot) || null;
 		bots[i].name = BotRaw.username;
 		bots[i].avatar = BotRaw.avatar;
 	}

@@ -26,12 +26,12 @@
                         <% bots.forEach((bot) => { %>
                             <tr>
                                 <th><abbr title="Nome"><%= bot.name %></abbr></th>
-                                <th><abbr title="ID"><%= bot.id %></abbr></th>
+                                <th><abbr title="ID"><%= bot.bot %></abbr></th>
                                 <th><abbr title="Prefixo"><%= bot.prefix %></abbr></th>
-                                <form action="/api/bots/<%= bot.id %>/approve" method="post">
+                                <form action="/api/bots/<%= bot.bot %>/approve" method="post">
                                     <th><abbr title="Aprovar"><button type="submit" class="button is-success">Aprovar</button></abbr></th>
                                 </form>
-                                <form action="/api/bots/<%= bot.id %>/deny" method="post">
+                                <form action="/api/bots/<%= bot.bot %>/deny" method="post">
                                     <th><abbr title="Reprovar"><button type="submit" class="button is-danger">Reprovar</button></abbr></th>
                                 </form>
                               </tr>

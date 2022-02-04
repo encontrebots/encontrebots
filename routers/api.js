@@ -45,15 +45,17 @@ router.post('/bots/:id/approve', async (req, res) => {
 	}
 	const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
 	const user = await bot.getRESTUser(req.params.id);
-	channel.createMessage(`:white_check_mark: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi aprovado. [<@${req.session.passport?.user.id}>].`);
+	channel.createMessage(`:white_check_mark: <@${data.owner}> **|** O Bot **${user.username}** foi aprovado. [<@${req.session.passport?.user.id}>].`);
 });
 
 router.post('/bots/:id/deny', async (req, res) => {
 	const model = require('../schemas/BotSchema');
+	const data = await model.findOne({ bot: req.params.id });
+	const owner = data.owner;
 	await model.findOneAndDelete({ bot: req.params.id });
 	const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
 	const user = await bot.getRESTUser(req.params.id);
-	channel.createMessage(`:x: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi reprovado. [<@${req.session.passport?.user.id}>].`);
+	channel.createMessage(`:x: <@${owner}> **|** O Bot **${user.username}** foi reprovado. [<@${req.session.passport?.user.id}>].`);
 	res.redirect('/queue?type=reproved');
 });
 

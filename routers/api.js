@@ -46,7 +46,6 @@ router.post('/bots/:id/approve', async (req, res) => {
 	const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
 	const user = await bot.getRESTUser(req.params.id);
 	channel.createMessage(`:white_check_mark: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi aprovado. [<@${req.session.passport?.user.id}>].`);
-	res.redirect('/queue?type=approved');
 });
 
 router.post('/bots/:id/deny', async (req, res) => {

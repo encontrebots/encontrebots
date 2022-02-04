@@ -80,7 +80,7 @@ router.get('/logout', async function(req, res) {
 });
 
 router.get('/add', async (req, res) => {
-	if (!req.session.passport.user) {
+	if (!req.session.passport?.user) {
 		res.redirect('/');
 	}
 	res.render('addbot', {

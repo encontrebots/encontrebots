@@ -1,6 +1,6 @@
 const express = require('express');
 const passport = require('passport');
-const config = require('../config/config.json');
+const config = require('../config/config');
 const bot = require('../bot/bot');
 const router = express.Router();
 

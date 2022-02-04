@@ -1,5 +1,5 @@
 require('colors');
-const config = require('./config/config.json');
+const config = require('./config/config');
 const PORT = process.env.PORT || config.port;
 const express = require('express');
 const session = require('express-session');

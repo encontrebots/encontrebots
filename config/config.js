@@ -12,6 +12,9 @@ module.exports = {
 				'verifiedBot': '938800923776516147',
 				'developer': '938800917262794832',
 				'pendentBot': '938800924321804318'
+			},
+			'channels': {
+				'logs': '938845976217661450',
 			}
 		}
 	},

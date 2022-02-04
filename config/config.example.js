@@ -1,25 +1,25 @@
 module.exports = {
 	'port': 3000,
 	'discord': {
-		'clientID': 'bot_id',
-		'clientSecret': 'bot_secret',
-		'clientToken': 'bot_token',
-		'callbackURL': 'http://localhost:3000/api/callback',
+		'clientID': process.env.CLIENT_ID,
+		'clientSecret': process.env.CLIENT_SECRET,
+		'clientToken': process.env.CLIENT_TOKEN,
+		'callbackURL': process.env.CALLBACK_URL,
 		'guild': {
-			'id': 'guild_id',
+			'id': '938779759658287175',
 			'roles': {
-				'verifier': 'verifier_role_id',
-				'verifiedBot': 'verified_role_id',
-				'developer': 'developer_role_id',
-				'pendentBot': 'unverified_role_id'
+				'verifier': '938801159810990150',
+				'verifiedBot': '938800923776516147',
+				'developer': '938800917262794832',
+				'pendentBot': '938800924321804318'
 			}
 		}
 	},
 	'server': {
-		'secret': 'secretfodaaq'
+		'secret': process.env.SECRET
 	},
 	'database': {
-		'uri': 'urldamongoaq',
+		'uri': process.env.MONGO,
 		'name': 'bdd'
 	},
 	'oauth2': {

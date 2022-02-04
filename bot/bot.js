@@ -1,4 +1,4 @@
-const config = require('../config/config');
+const config = require('../config/config.js');
 const Eris = require('eris');
 const bot = new Eris.Client(config.discord.clientToken, {
 	restMode: true,

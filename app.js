@@ -1,5 +1,6 @@
+require('dotenv').config();
 require('colors');
-const config = require('./config/config');
+const config = require('./config/config.js');
 const PORT = process.env.PORT || config.port;
 const express = require('express');
 const session = require('express-session');

@@ -1,5 +1,5 @@
 const express = require('express');
-const config = require('../config/config');
+const config = require('../config/config.js');
 const getStaff = require('../utils/functions.js');
 const bot = require('../bot/bot.js');
 const router = express.Router();

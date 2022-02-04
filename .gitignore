@@ -5,7 +5,6 @@ yarn.lock
 
 ## CONFIG FILES
 
-config.js
 .env
 
 ## DATABASE

@@ -15,7 +15,20 @@ router.get('/bots/:botid', async (req, res) => {
 	const model = require('../schemas/BotSchema');
 	const botDB = await model.findOne({ bot: req.params.botid });
 	if (botDB) {
-		res.status(200).json(botDB);
+		const ownerInfo = await bot.getRESTUser(botDB.owner);
+		const botObj = {
+			id: botDB.bot,
+			avatar: botDB.avatar,
+			shortDesc: botDB.descc,
+			longDesc: botDB.descl,
+			prefix: botDB.prefix,
+			support: botDB.support,
+			website: botDB.website,
+			tags: botDB.tags,
+			status: botDB.status,
+			owner: ownerInfo
+		};
+		res.status(200).json(botObj);
 	}
 	else {
 		res.status(404).json({ error: 'Bot not found' });

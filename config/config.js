@@ -30,15 +30,14 @@ module.exports = {
 		'scopes': ['identify']
 	},
 	'tags': [
-		'levels',
-		'moderação',
-		'social',
-		'diversão',
-		'economia',
-		'diversão',
-		'musica',
-		'anime',
-		'multiidioma',
-		'logs'
+		'Levels',
+		'Moderação',
+		'Social',
+		'Diversão',
+		'Economia',
+		'Música',
+		'Anime',
+		'Multiidioma',
+		'Logs'
 	]
 };

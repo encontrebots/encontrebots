@@ -1,7 +1,7 @@
 let toggle = document.querySelector('.navbar-burger');
 let menu = document.querySelector('.navbar-menu');
 
-let dropBtn = document.querySelector('.droplist');
+let dropBtn = document.querySelector('.dropdown');
 let dropdown = document.querySelector('.has-dropdown');
 dropBtn.addEventListener('click', () => {
 	dropdown.classList.toggle('is-active');

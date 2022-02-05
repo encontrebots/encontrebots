@@ -18,11 +18,14 @@ bot.on('ready', async () => {
 bot.on('guildMemberAdd', async (guild, member) => {
 	if (guild.id !== config.discord.guild.id) return;
 	if (member.bot) {
-		member.addRole(config.discord.guild.roles.pendentBot);
+		member.addRole(config.discord.guild.roles.verifiedBot);
 	}
-	const devDB = await bot.db.get(`developer-${member.id}`);
-	if (devDB) {
-		member.addRole(config.discord.guild.roles.developer);
+	else {
+		const model = require('../schemas/BotSchema');
+		const data = await model.findOne({ owner: member.id });
+		if (data) {
+			member.addRole(config.discord.guild.roles.developer);
+		}
 	}
 });
 

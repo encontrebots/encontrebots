@@ -13,9 +13,12 @@ html {
     background-color: #23272A;
     color: #7289DA;
 }
-
 .hero-body {
     padding: 25px 50px 75px 100px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 0 auto !important;
 }
 .card {
     background-color: #90E0EF;

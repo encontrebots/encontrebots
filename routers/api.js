@@ -11,6 +11,17 @@ router.get('/callback', passport.authenticate('discord', { failureRedirect: '/' 
 	else {res.redirect('/dashboard');}
 });
 
+router.get('/bots/:botid', async (req, res) => {
+	const model = require('../schemas/BotSchema');
+	const botDB = await model.findOne({ bot: req.params.botid });
+	if (botDB) {
+		res.status(200).json(botDB);
+	}
+	else {
+		res.status(404).json({ error: 'Bot not found' });
+	}
+});
+
 router.post('/bots/:botid/edit', async (req, res) => {
 	const model = require('../schemas/BotSchema');
 	const botDB = await model.findOne({ bot: req.params.botid });

@@ -17,6 +17,10 @@ router.get('/:id/website', async (req, res) => {
 	}
 });
 
+router.get('/:id/vote', async (req, res) => {
+	res.redirect('/bots/' + req.params.id);
+});
+
 router.get('/:id/discord', async (req, res) => {
 	await getStaff(req, bot, config);
 	const model = require('../schemas/BotSchema');

@@ -21,5 +21,14 @@ html {
     margin: 0 auto !important;
 }
 .card {
-    background-color: #90E0EF;
+    background-color: #CAF0F8;
+    max-height: 250px;
+    height: 250px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+.botcard {
+    background-color: #CAF0F8;
 }

@@ -18,6 +18,7 @@
                         <th><abbr title="Position">Nome</abbr></th>
                         <th><abbr title="Played">ID</abbr></th>
                         <th><abbr title="Won">Prefixo</abbr></th>
+                        <th><abbr title="Test">Testar</abbr></th>
                         <th><abbr title="Drawn">Aprovar</abbr></th>
                         <th><abbr title="Lost">Reprovar</abbr></th>
                       </tr>
@@ -28,6 +29,7 @@
                                 <th><abbr title="Nome"><%= bot.name %></abbr></th>
                                 <th><abbr title="ID"><%= bot.bot %></abbr></th>
                                 <th><abbr title="Prefixo"><%= bot.prefix %></abbr></th>
+                                <th><abbr title="Testar"><a href="https://discordapp.com/oauth2/authorize?client_id=<%= bot.bot %>&guild_id=939510860966158388&scope=bot&permissions=8"><button class="button is-link">Testar</button></a></abbr></th>
                                 <form action="/api/bots/<%= bot.bot %>/approve" method="post">
                                     <th><abbr title="Aprovar"><button type="submit" class="button is-success">Aprovar</button></abbr></th>
                                 </form>

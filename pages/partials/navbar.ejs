@@ -1,4 +1,4 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="droplist navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="/">
             <img class="avatar" src="<%= bot.user.avatarURL %>" width="28" height="28">
@@ -33,7 +33,7 @@
             <div class="navbar-item">
                 <div class="buttons">
                     <% if (user) { %>
-                    <div class="dropdown is-active">
+                    <div class="droplist is-active">
                         <div class="dropdown-trigger">
                             <button class="button is-info" aria-haspopup="true" aria-controls="dropdown-menu">
                                 <img class="avatar" src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png?size=4096" width="28" height="28"><strong>&nbsp;<%= user.username %>#<%= user.discriminator %></strong>
@@ -42,7 +42,7 @@
                                 </span>
                             </button>
                         </div>
-                        <div id="dropdown" class="dropdown-menu has-dropdown is-hidden" id="dropdown-menu" role="menu">
+                        <div id="droplist" class="dropdown-menu has-dropdown is-hidden" id="dropdown-menu" role="menu">
                             <div class="dropdown-content">
                                 <a href="/@me" class="dropdown-item">
                                     Perfil

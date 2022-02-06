@@ -11,6 +11,22 @@ router.get('/callback', passport.authenticate('discord', { failureRedirect: '/' 
 	else {res.redirect('/dashboard');}
 });
 
+router.post('/bots/:botid/delete', async (req, res) => {
+	const model = require('../schemas/BotSchema');
+	if (req.headers.authorization !== process.env.APIAUTH) return;
+	const botid = req.params.botid;
+	model.findOneAndDelete({ bot: botid });
+	res.sendStatus(200);
+});
+
+router.get('/users/:id', async (req, res) => {
+	const userInfo = await bot.getRESTUser(req.params.id).catch((e) => {
+		res.status(500).send({
+			error: e.message
+		});
+	});
+	res.json(userInfo);
+});
 router.get('/bots/:botid', async (req, res) => {
 	const model = require('../schemas/BotSchema');
 	const botDB = await model.findOne({ bot: req.params.botid });

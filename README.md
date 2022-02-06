@@ -7,7 +7,7 @@
 - You can't speak in a "we did it" way.
 - You cannot sell this
 - Don't touch this part on footer;
-<a>- Don't touch this part on footer;</a><br>
+<br>
 <img width="512" src="/assets/bdd_footer.png"><br><br>
 ### Github Status:
 <p align="center">

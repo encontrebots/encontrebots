@@ -28,6 +28,7 @@ const db = require('level')('./sessions');
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000,
 	max: 100,
+	message: 'Estamos recebendo muitos requests atualmente, para evitar travamentos, tente novamente mais tarde.',
 	standardHeaders: true,
 });
 

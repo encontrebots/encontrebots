@@ -22,6 +22,10 @@ router.post('/bots/:botid/delete', async (req, res) => {
 router.post('/stats/bots', async (req, res) => {
 	const model = require('../schemas/BotSchema');
 	try {
+		const botData = await model.findOne({ apikey: req.body.data.auth });
+		if (!botData) {
+			return res.sendStatus(401);
+		}
 		await model.findOneAndUpdate({ apikey: req.body.data.auth }, {
 			stats: {
 				servers: req.body.data.servers,

@@ -23,12 +23,12 @@ router.post('/stats/bots', async (req, res) => {
 	const model = require('../schemas/BotSchema');
 	const bota = await model.findOne({ apikey: req.body.auth });
 	if (!bota) {
-		res.sendStatus(401);
+		return res.sendStatus(401);
 	}
 	bota.stats.servers = req.body.servers;
 	bota.stats.users = req.body.users;
 	bota.stats.shards = req.body.shards;
-	bota.save();
+	await bota.save();
 	return res.sendStatus(200);
 });
 

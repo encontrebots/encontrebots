@@ -29,6 +29,15 @@ const Schema = mongoose.Schema({
 	},
 	stats: {
 		type: Object,
+		servers: {
+			type: Number,
+		},
+		users: {
+			type: Number,
+		},
+		shards: {
+			type: Number,
+		},
 		default: {
 			servers: 0,
 			users: 0,

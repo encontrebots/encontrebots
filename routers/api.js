@@ -20,15 +20,15 @@ router.post('/bots/:botid/delete', async (req, res) => {
 });
 
 router.post('/stats/bots', async (req, res) => {
-	console.log(req.body);
+	console.log(req.body.data);
 	const model = require('../schemas/BotSchema');
-	const bota = await model.findOne({ apikey: req.body.auth });
+	const bota = await model.findOne({ apikey: req.body.data.auth });
 	if (!bota) {
 		return res.sendStatus(401);
 	}
-	bota.stats.servers = req.body.servers;
-	bota.stats.users = req.body.users;
-	bota.stats.shards = req.body.shards;
+	bota.stats.servers = req.body.data.servers;
+	bota.stats.users = req.body.data.users;
+	bota.stats.shards = req.body.data.shards;
 	await bota.save();
 	return res.sendStatus(200);
 });

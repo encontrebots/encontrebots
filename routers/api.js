@@ -19,7 +19,7 @@ router.post('/bots/:botid/delete', async (req, res) => {
 	res.sendStatus(200);
 });
 
-router.post('/bots/stats', async (req, res) => {
+router.post('/stats/bots', async (req, res) => {
 	const model = require('../schemas/BotSchema');
 	if (req.headers.authorization !== model.apikey) return;
 	model.findOneAndDelete({ apikey: req.headers.authorization });

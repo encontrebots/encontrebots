@@ -1,0 +1,37 @@
+<html>
+
+<head>
+    <%- include('./partials/head'); %>
+</head>
+
+<body>
+    <%- include('./partials/navbar'); %>
+    <br>
+    <div class="hero-body">
+        <div class="box">
+            <h1 class="title">
+                Editar Bot
+            </h1>
+            Preencha o formulário para adicionar um bot em nossa botlist.
+            <div class="tabs">
+                <ul>
+                    <li><a href="/bots/<%= boti.bot %>/edit">Geral</a></li>
+                    <li class="is-active"><a href="/bots/<%= boti.bot %>/api">Api</a></li>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <form action="/api/bots/<%= boti.bot %>/genkey" method="POST">
+            <div class="field">
+                <label class="label">API Key</label>
+                <div class="control">
+                    <input value="<%= boti.apikey %>" id="key" name="key" class="input" type="text" placeholder="https://seudominio.com" disabled>
+                </div>
+                <button type="submit" class="button is-success">Gerar Key</button>
+            </div>
+        </form>
+    </div>
+    <%- include('./partials/footer'); %>
+</body>
+
+</html>

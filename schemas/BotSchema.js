@@ -24,9 +24,24 @@ const Schema = mongoose.Schema({
 	tags: {
 		type: Array
 	},
+	apikey: {
+		type: String
+	},
+	stats: {
+		type: Object,
+		default: {
+			servers: 0,
+			users: 0,
+			shards: 0,
+		}
+	},
 	status: {
 		type: String,
 		default: 'pending'
+	},
+	votes: {
+		type: Number,
+		default: 0
 	},
 	owner: {
 		type: String

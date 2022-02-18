@@ -19,6 +19,56 @@ router.post('/bots/:botid/delete', async (req, res) => {
 	res.sendStatus(200);
 });
 
+router.post('/bots/stats', async (req, res) => {
+	const model = require('../schemas/BotSchema');
+	if (req.headers.authorization !== model.apikey) return;
+	model.findOneAndDelete({ apikey: req.headers.authorization });
+	model.stats = {
+		servers: req.body.servers,
+		shards: req.body.shards,
+		users: req.body.users,
+	};
+	model.save();
+	return res.sendStatus(200);
+});
+
+router.post('/bots/:botid/vote', async (req, res) => {
+	const model = require('../schemas/BotSchema');
+	const model2 = require('../schemas/UserSchema');
+
+	const botid = req.params.botid;
+	const userid = req.body.userid;
+
+	const botData = await model.findOne({ bot: botid });
+	const userData = await model2.findOne({ userID: userid });
+
+	if (userData) {
+		const OneHour = 60 * 60 * 1000;
+		const TwentyFourHour = 24 * OneHour;
+
+		const timeDiff = Date.now() - userData.lastVoted;
+
+		if (timeDiff < TwentyFourHour) {
+			return res.redirect('/bots/' + botid + '/vote?type=alderayvoted');
+		}
+		else {
+			userData.lastVoted = Date.now();
+			userData.save();
+
+			const currentVotes = botData.votes || 0;
+
+			botData.votes = currentVotes + 1;
+			botData.save();
+
+			const user = await bot.getRESTUser(req.params.botid);
+			const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
+			channel.createMessage(`⬆️ <@${req.session.passport?.user.id}> **|** Você votou no bot **${user.username}** com sucesso!`);
+			res.redirect('/bots/' + botid + '/vote?type=voted');
+		}
+	}
+	res.sendStatus(200);
+});
+
 router.get('/users/:id', async (req, res) => {
 	const userInfo = await bot.getRESTUser(req.params.id).catch((e) => {
 		res.status(500).send({
@@ -27,6 +77,7 @@ router.get('/users/:id', async (req, res) => {
 	});
 	res.json(userInfo);
 });
+
 router.get('/bots/:botid', async (req, res) => {
 	const model = require('../schemas/BotSchema');
 	const botDB = await model.findOne({ bot: req.params.botid });
@@ -48,6 +99,21 @@ router.get('/bots/:botid', async (req, res) => {
 	}
 	else {
 		res.status(404).json({ error: 'Bot not found' });
+	}
+});
+
+router.post('/bots/:botid/genkey', async (req, res) => {
+	const model = require('../schemas/BotSchema');
+	const botDB = await model.findOne({ bot: req.params.botid });
+	if (!botDB) {
+		res.redirect(`/bots/${req.params.botid}/api?type=unknown`);
+	}
+	else {
+		const newKey = Math.random().toString(36);
+		const botd = await model.findOne({ bot: req.params.botid });
+		botd.apikey = newKey;
+		botd.save();
+		res.redirect(`/bots/${botDB.bot}/api?type=edited`);
 	}
 });
 

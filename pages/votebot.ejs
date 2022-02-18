@@ -54,16 +54,6 @@
                                 </button>
                             </a>
                         </p>
-                        <p class="control">
-                            <a href="/bots/<%= boti.bot %>/vote">
-                                <button class="button is-link">
-                                    <span class="icon is-small">
-                                        <i class="fas fa-vote-yea"></i>
-                                    </span>
-                                    <span>Votar</span>
-                                </button>
-                            </a>
-                        </p>
                         <% if (botOwner) { %>
                         <p class="control">
                             <a href="/bots/<%= boti.bot %>/edit">
@@ -80,11 +70,15 @@
                 </div>
             </div>
         </div>
-        <div class="box">
-            <div class="card-body">
-                <div id="bot-description" style="white-space:pre-wrap;"><%- botDesc %></div>
-            </div>
-        </div>
+        <center>
+            <form action="/api/bots/<%= boti.bot %>/vote" method="POST">
+                <input type="hidden" name="userid" value="<%= user.id %>"><section class="ftco-section pb-0">
+                    <br>
+                    <button type="submit" class="button is-success">
+                        Votar
+                    </button>
+            </form>
+        </center>
     </div>
     <%- include('./partials/footer'); %>
 </body>

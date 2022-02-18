@@ -14,7 +14,7 @@ const { Strategy } = require('passport-discord');
 
 const path = require('path');
 
-app.engine('html', ejs.renderFile);
+app.engine('ejs', ejs.renderFile);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/pages'));
 app.use(express.json());
@@ -55,6 +55,13 @@ passport.use(new Strategy({
 	prompt: config.oauth2.prompt,
 	scope: config.oauth2.scopes,
 }, function(accessToken, refreshToken, profile, done) {
+	const model = require('./schemas/UserSchema');
+	const user = new model({
+		userID: profile.id,
+		alderayVoted: false,
+		lastVoted: null,
+	});
+	user.save();
 	process.nextTick(function() {
 		return done(null, profile);
 	});

@@ -13,6 +13,12 @@
                 Editar Bot
             </h1>
             Preencha o formulário para adicionar um bot em nossa botlist.
+            <div class="tabs">
+                <ul>
+                    <li class="is-active"><a href="/bots/<%= boti.bot %>/edit">Geral</a></li>
+                    <li><a href="/bots/<%= boti.bot %>/api">Api</a></li>
+                </ul>
+            </div>
         </div>
         <br>
         <form action="/api/bots/<%= boti.bot %>/edit" method="post">
@@ -31,7 +37,7 @@
             <div class="field">
                 <label class="label">Descrição Longa</label>
                 <div class="control">
-                    <textarea value="<%= boti.descl %>" id="descl" name="descl" class="textarea" placeholder="Um bot revolucionario capaz de fazer XYZABC, com funcionalidades ABC, que tem o site XYZ."></textarea>
+                    <textarea id="descl" name="descl" class="textarea" placeholder="Um bot revolucionario capaz de fazer XYZABC, com funcionalidades ABC, que tem o site XYZ."><%= boti.descl %></textarea>
                 </div>
             </div>
             <div class="field">
@@ -62,10 +68,9 @@
                     <% }); %>
                 </select>
             </div>
+            <br>
             <div class="field is-grouped">
-                <div class="control">
-                    <button type="submit" class="button is-link">Editar</button>
-                </div>
+                <button type="submit" class="button is-link">Editar</button>
             </div>
         </form>
     </div>

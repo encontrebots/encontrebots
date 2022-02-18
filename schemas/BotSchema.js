@@ -37,11 +37,6 @@ const Schema = mongoose.Schema({
 		},
 		shards: {
 			type: Number,
-		},
-		default: {
-			servers: 0,
-			users: 0,
-			shards: 0,
 		}
 	},
 	status: {

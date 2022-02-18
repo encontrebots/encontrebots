@@ -20,6 +20,7 @@ router.post('/bots/:botid/delete', async (req, res) => {
 });
 
 router.post('/stats/bots', async (req, res) => {
+	console.log(req.body);
 	const model = require('../schemas/BotSchema');
 	const bota = await model.findOne({ apikey: req.body.auth });
 	if (!bota) {

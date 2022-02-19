@@ -60,22 +60,20 @@ router.post('/bots/:botid/vote', async (req, res) => {
 		if (timeDiff < TwentyFourHour) {
 			return res.redirect('/bots/' + botid + '/vote?type=alderayvoted');
 		}
-		else {
-			userData.lastVoted = Date.now();
-			userData.save();
 
-			const currentVotes = botData.votes || 0;
+		userData.lastVoted = Date.now();
+		userData.save();
 
-			botData.votes = currentVotes + 1;
-			botData.save();
+		const currentVotes = botData.votes || 0;
 
-			const user = await bot.getRESTUser(req.params.botid);
-			const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
-			channel.createMessage(`⬆️ <@${req.session.passport?.user.id}> **|** Você votou no bot **${user.username}** com sucesso!`);
-			res.redirect('/bots/' + botid + '/vote?type=voted');
-		}
+		botData.votes = currentVotes + 1;
+		botData.save();
+
+		const user = await bot.getRESTUser(req.params.botid);
+		const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
+		channel.createMessage(`⬆️ <@${req.session.passport?.user.id}> **|** Você votou no bot **${user.username}** com sucesso!`);
+		res.redirect('/bots/' + botid + '/vote?type=voted');
 	}
-	res.sendStatus(200);
 });
 
 router.get('/users/:id', async (req, res) => {
@@ -122,7 +120,7 @@ router.post('/bots/:botid/genkey', async (req, res) => {
 		const botd = await model.findOne({ bot: req.params.botid });
 		botd.apikey = newKey;
 		botd.save();
-		res.redirect(`/bots/${botDB.bot}/api?type=edited`);
+		res.redirect(`/bots/${botDB.bot}/api?type=generated`);
 	}
 });
 

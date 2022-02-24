@@ -15,7 +15,7 @@ bot.on('ready', async () => {
 	bot.db = new DatabaseManager('./database/db.json');
 	setInterval(async () => {
 		const channel = await bot.getRESTChannel('944179728556904478');
-		channel.createMessage('[RAM] **|** ' + Math.round(process.memoryUsage().rss / 1000000) + 'MB');
+		channel.createMessage('>>> **[RAM] |** `' + Math.round(process.memoryUsage().rss / 1000000) + 'mb`');
 	}, 3000);
 });
 

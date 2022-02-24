@@ -6,7 +6,7 @@
   "author": "yADGithub <2007andrelucaas@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node .",
+    "start": "node --max_old_space_size=512 --gc_global --optimize_for_size --use_idle_notification --always_compact --gc_interval=100 --expose_gc --no-warnings .",
     "lint": "eslint --fix --ext .js --ignore-path .gitignore ."
   },
   "dependencies": {

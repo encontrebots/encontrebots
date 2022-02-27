@@ -11,6 +11,13 @@ router.get('/callback', passport.authenticate('discord', { prompt: 'none', failu
 	else {res.redirect('/dashboard');}
 });
 
+router.get('/alternative/bots/:id', async (req, res) => {
+	const { get } = require('axios');
+	await get('https://botblock.org/api/bots/' + req.params.id).then(async (resp) => {
+		res.status(200).json(resp.data);
+	});
+});
+
 router.post('/bots/:botid/delete', async (req, res) => {
 	const model = require('../schemas/BotSchema');
 	if (req.headers.authorization !== process.env.APIAUTH) return;

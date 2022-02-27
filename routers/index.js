@@ -5,7 +5,6 @@ const bot = require('../bot/bot.js');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-	await getStaff(req, bot, config);
 	const model = require('../schemas/BotSchema');
 	const bots = await model.find({ status: 'verified' });
 	for (let i = 0; i < bots.length; i++) {
@@ -59,8 +58,13 @@ router.get('/@me', async (req, res) => {
 });
 
 router.get('/bots', async (req, res) => {
-	await getStaff(req, bot, config);
-	const bots = await bot.db.get('bots');
+	const model = require('../schemas/BotSchema');
+	const bots = await model.find({ status: 'verified' });
+	for (let i = 0; i < bots.length; i++) {
+		const BotRaw = await bot.getRESTUser(bots[i].bot) || null;
+		bots[i].name = BotRaw.username;
+		bots[i].avatar = BotRaw.avatarURL;
+	}
 	res.render('bots', {
 		bot: bot,
 		bots: bots,

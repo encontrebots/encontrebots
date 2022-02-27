@@ -1,8 +1,11 @@
-html {
-    background-color: #ADE8F4;
+.darkmode--activated strong {
+    color: white;
 }
 .navbar {
     background-color: #CAF0F8;
+}
+.darkmode--activated .navbar {
+    background-color: #232323;
 }
 .avatar {
     border-radius: 50%;
@@ -28,8 +31,29 @@ html {
     padding-bottom: 10px;
     padding-left: 10px;
 }
+.darkmode--activated .card {
+    background-color: #343434;
+    color: white;
+}
 .botcard {
     background-color: #CAF0F8;
+}
+.darkmode--activated .botcard {
+    background-color: #343434;
+    color: white;
+}
+.darkmode--activated .box {
+    background-color: #464646;
+    color: white;
+}
+.darkmode--activated .navtitle {
+    color: white;
+}
+.darkmode--activated .title {
+    color: white;
+}
+.darkmode--activated .subtitle {
+    color: white;
 }
 .select {
     border:0;

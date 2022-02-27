@@ -1,3 +1,4 @@
+/* eslint-disable */
 let toggle = document.querySelector('.navbar-burger');
 let menu = document.querySelector('.navbar-menu');
 

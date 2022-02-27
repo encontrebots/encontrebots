@@ -1,149 +1,234 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-            <img class="avatar" src="<%= bot.user.avatarURL %>" width="28" height="28">
-            <span class="pl-2">
-                Bots de Discord
-            </span>
-        </a>
 
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-    </div>
-
-    <div id="navbarBasicExample" class="dropdown navbar-menu">
-        <div class="navbar-start">
-            <a href="/" class="navbar-item">
-                <i class="fas fa-home"></i>&nbsp;Início
-            </a>
-
-            <a href="/discord" class="navbar-item">
-                <i class="fas fa-link"></i>&nbsp;Servidor
-            </a>
-
-            <a href="/add" class="navbar-item">
-                <i class="fas fa-robot"></i>&nbsp;Adicionar Bot
-            </a>
-            <a class="navbar-item">
-                <style type="text/css">
-                    a.gflag {
-                        vertical-align: middle;
-                        font-size: 16px;
-                        padding: 1px 0;
-                        background-repeat: no-repeat;
-                        background-image: url(//gtranslate.net/flags/16.png);
-                    }
-
-                    a.gflag img {
-                        border: 0;
-                    }
-
-                    a.gflag:hover {
-                        background-image: url(//gtranslate.net/flags/16a.png);
-                    }
-
-                    #goog-gt-tt {
-                        display: none !important;
-                    }
-
-                    .goog-te-banner-frame {
-                        display: none !important;
-                    }
-
-                    .goog-te-menu-value:hover {
-                        text-decoration: none !important;
-                    }
-
-                    body {
-                        top: 0 !important;
-                    }
-
-                    #google_translate_element2 {
-                        display: none !important;
-                    }
-                </style>
-                <select class="select" id="idioma" onchange="doGTranslate(this);">
-                    <option value="pt|pt">Português</option>
-                    <option value="pt|en">English</option>
-                    <option value="pt|it">Italian</option>
-                </select>
-                <div id="google_translate_element2"></div>
-                <script type="text/javascript">
-                    function googleTranslateElementInit2() {
-                        new google.translate.TranslateElement({
-                            pageLanguage: 'pt',
-                            autoDisplay: false
-                        }, 'google_translate_element2');
-                    }
-                </script>
-                <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2"></script>
-                <script type="text/javascript">
-                    /* <![CDATA[ */
-                    eval(function(p, a, c, k, e, r) {
-                        e = function(c) {
-                            return (c < a ? '' : e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36))
-                        };
-                        if (!''.replace(/^/, String)) {
-                            while (c--) r[e(c)] = k[c] || e(c);
-                            k = [function(e) {
-                                return r[e]
-                            }];
-                            e = function() {
-                                return '\\w+'
-                            };
-                            c = 1
-                        };
-                        while (c--)
-                            if (k[c]) p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]);
-                        return p
-                    }('6 7(a,b){n{4(2.9){3 c=2.9("o");c.p(b,f,f);a.q(c)}g{3 c=2.r();a.s(\'t\'+b,c)}}u(e){}}6 h(a){4(a.8)a=a.8;4(a==\'\')v;3 b=a.w(\'|\')[1];3 c;3 d=2.x(\'y\');z(3 i=0;i<d.5;i++)4(d[i].A==\'B-C-D\')c=d[i];4(2.j(\'k\')==E||2.j(\'k\').l.5==0||c.5==0||c.l.5==0){F(6(){h(a)},G)}g{c.8=b;7(c,\'m\');7(c,\'m\')}}', 43, 43, '||document|var|if|length|function|GTranslateFireEvent|value|createEvent||||||true|else|doGTranslate||getElementById|google_translate_element2|innerHTML|change|try|HTMLEvents|initEvent|dispatchEvent|createEventObject|fireEvent|on|catch|return|split|getElementsByTagName|select|for|className|goog|te|combo|null|setTimeout|500'.split('|'), 0, {}))
-                    /* ]]> */
-                </script>
-            </a>
-        </div>
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-                    <% if (user) { %>
-                    <div class="dropdown is-active">
-                        <div class="dropdown-trigger">
-                            <button class="button is-info" aria-haspopup="true" aria-controls="dropdown-menu">
-                                <img class="avatar" src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png?size=4096" width="28" height="28"><strong>&nbsp;<%= user.username %>#<%= user.discriminator %></strong>
-                                <span class="icon is-small">
-                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                                </span>
-                            </button>
-                        </div>
-                        <div id="dropdown" class="dropdown dropdown-menu has-dropdown is-hidden" id="dropdown-menu" role="menu">
-                            <div class="dropdown-content">
-                                <a href="/@me" class="dropdown-item">
-                                    Perfil
-                                </a>
-                                <a href="/add" class="dropdown-item">
-                                    Adicionar Bot
-                                </a>
-                                <a href="/logout" class="dropdown-item">
-                                    Deslogar
-                                </a>
-                                <% if (user.staff) { %>
-                                <hr class="dropdown-divider">
-                                <a href="/queue" class="dropdown-item">
-                                    Fila
-                                </a>
-                                <% } %>
+        <!-- Desktop Screen Size Start -->
+        <div class="navbar hidden lg:block relative border-b mb-8 px-8 border-gray-100">
+            <div class="2xl:container 2xl:mx-auto flex justify-between items-center w-full">
+                <div class="relative w-full py-3 flex justify-start items-center space-x-4">
+                    <a href="/">
+                        <img class="avatar" src="<%= bot.user.avatarURL %>" width="28" height="28">
+                        <span class="navtitle pl-2">
+                            Bots de Discord
+                        </span>
+                    </a>
+                    <!-- pop up on input -->
+                </div>
+                <div class="flex justify-center items-center w-full space-x-4">
+                    <button class="navtitle py-3 h-full focus:text-blue-700 text-center border-b-2 focus:outline-none focus:border-blue-700 border-transparent">
+                        <a href="/" class="navtitle text-sm focus:outline-none font-medium leading-4 px-4 py-3 hover:bg-blue-50 hover:text-blue-700 rounded"><i class="fas fa-home"></i>&nbsp;Início</a>
+                    </button>
+                    <button class="navtitle py-3 h-full text-gray-600 focus:text-blue-700 text-center border-b-2 focus:outline-none focus:border-blue-700 border-transparent">
+                        <a href="/discord" class="navtitle text-sm focus:outline-none font-medium leading-4 px-4 py-3 hover:bg-blue-50 hover:text-blue-700 rounded"><i class="fas fa-link"></i>&nbsp;Servidor</a>
+                    </button>
+                    <button class="navtitle py-3 h-full text-gray-600 focus:text-blue-700 text-center border-b-2 focus:outline-none focus:border-blue-700 border-transparent">
+                        <a href="/add" class="navtitle text-sm focus:outline-none font-medium leading-4 px-4 py-3 hover:bg-blue-50 hover:text-blue-700 rounded"><i class="fas fa-robot"></i>&nbsp;Adicionar Bot</a>
+                    </button>
+                </div>
+                <div class="relative py-3 flex justify-end items-center w-full space-x-6">
+                    <div class="buttons">
+                        <% if (user) { %>
+                        <div class="dropdown is-active">
+                            <div class="dropdown-trigger">
+                                <button class="button is-info" aria-haspopup="true" aria-controls="dropdown-menu">
+                                    <img class="avatar" src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png?size=4096" width="28" height="28"><strong>&nbsp;<%= user.username %>#<%= user.discriminator %></strong>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="dropdown" class="dropdown dropdown-menu has-dropdown is-hidden" id="dropdown-menu" role="menu">
+                                <div class="dropdown-content">
+                                    <a href="/@me" class="dropdown-item">
+                                        Perfil
+                                    </a>
+                                    <a href="/add" class="dropdown-item">
+                                        Adicionar Bot
+                                    </a>
+                                    <a href="/logout" class="dropdown-item">
+                                        Deslogar
+                                    </a>
+                                    <% if (user.staff) { %>
+                                    <hr class="dropdown-divider">
+                                    <a href="/queue" class="dropdown-item">
+                                        Fila
+                                    </a>
+                                    <% } %>
+                                </div>
                             </div>
                         </div>
+                        <% } else { %>
+                        <a href="/login" class="button is-primary">
+                            <strong>Login</strong>
+                        </a>
+                        <% } %>
                     </div>
-                    <% } else { %>
-                    <a href="/login" class="button is-primary">
-                        <strong>Login</strong>
-                    </a>
-                    <% } %>
                 </div>
             </div>
         </div>
-    </div>
-</nav>
+        <!-- Desktop Screen Size End -->
+
+        <!-- Mobile and Ipad Screen size start -->
+        <div class="lg:hidden h-full">
+            <div class="py-4 px-4 md:px-6 w-full flex justify-between items-center bg-white border-b border-gray-100">
+                <div id="searchItems" class="w-full flex justify-between items-center">
+                    <button class="">
+                        <a href="/">
+                            <img class="avatar" src="<%= bot.user.avatarURL %>" width="28" height="28">
+                        </a>
+                    </button>
+                    <div class="flex jusitfy-end items-center space-x-10">
+                        <div id="navSearchandAvatar" class="flex jusitfy-end items-center space-x-10">
+                            <div class="relative">
+                                <button onclick="show2('dropdown2')" class="w-8">
+                                    <% if (user) { %>
+                                        <img class="avatar" src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png?size=4096" width="28" height="28">
+                                        <% } else { %>
+                                    <% } %>
+                                </button>
+                                <div id="dropdown2" class="hidden relative z-20 top-16 -right-16 w-80 sm:w-96 bg-white shadow border rounded border-gray-200 py-4 flex justify-start items-start flex-col">
+                                    <% if (user) { %>
+                                    <a href="/@me" class="dropdown-item">
+                                        Perfil
+                                    </a>
+                                    <a href="/add" class="dropdown-item">
+                                        Adicionar Bot
+                                    </a>
+                                    <a href="/logout" class="dropdown-item">
+                                        Deslogar
+                                    </a>
+                                    <% if (user.staff) { %>
+                                    <hr class="dropdown-divider">
+                                    <a href="/queue" class="dropdown-item">
+                                        Fila
+                                    </a>
+                                    <% } %>
+                                    <% } else { %>
+                                    <a href="/login" class="dropdown-item">
+                                        Login
+                                    </a>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="show('nav')" aria-label="toggler">
+                            <svg id="navClose" class="" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3.75 7.5H20.25" stroke="#4B5563" stroke-miterlimit="10" stroke-linecap="round" />
+                                <path d="M3.75 12H20.25" stroke="#4B5563" stroke-miterlimit="10" stroke-linecap="round" />
+                                <path d="M3.75 16.5H20.25" stroke="#4B5563" stroke-miterlimit="10" stroke-linecap="round" />
+                            </svg>
+                            <svg id="navOpen" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 6L6 18" stroke="#4B5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M6 6L18 18" stroke="#4B5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div id="searchItemsSecond" class="hidden w-full flex justify-between items-center">
+                    <div class="relative w-full flex justify-start items-center mr-4 md:mr-16">
+                        <input oninput="showDiv2(this)" value="" class="w-full py-3 bg-gray-100 rounded pl-10 focus:outline-none text-sm leading-none text-gray-600 placeholder-gray-600" type="text" placeholder="Search" />
+                        <svg class="absolute left-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z" stroke="#4B5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M21 21L15 15" stroke="#4B5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <!-- pop up on input -->
+                        <div id="popup2" class="hidden ease-in-out transition duration-500 bg-white z-20 top-20 absolute w-full shadow border rounded border-gray-200 py-3 flex justify-center items-start flex-col">
+                            <p class="px-3 text-left w-full text-sm font-medium leading-4 text-gray-800">Products</p>
+                            <button class="mt-2 flex py-2 px-3 w-full flex justify-start items-center space-x-2 hover:bg-blue-50 rounded">
+                                <div>
+                                    <img src="https://i.ibb.co/BrPztW1/Coinbase-Icon.png" alt="Coinbase-Icon" />
+                                </div>
+                                <div class="flex justify-start items-start flex-col space-y-1">
+                                    <p class="text-xs text-left leading-3 text-gray-800">Coinbase</p>
+                                    <p class="text-xs text-left leading-3 text-gray-600">Trading tool for stoks and funds</p>
+                                </div>
+                            </button>
+                            <button class="mt-2 flex py-2 px-3 w-full flex justify-start items-center space-x-2 hover:bg-blue-50 rounded">
+                                <div>
+                                    <img src="https://i.ibb.co/7KJTB5r/CNN-Icon.png" alt="CNN-Icon" />
+                                </div>
+                                <div class="flex justify-start items-start flex-col space-y-1">
+                                    <p class="text-xs text-left leading-3 text-gray-800">CNN</p>
+                                    <p class="text-xs text-left leading-3 text-gray-600">News and communications</p>
+                                </div>
+                            </button>
+                            <div class="px-3 flex justify-start items-start mt-8 flex-col space-y-4">
+                                <p class="text-base text-left font-medium leading-4 text-gray-800">Flows</p>
+                                <p class="text-base text-left leading-3 text-gray-600">Classes</p>
+                                <p class="text-base text-left leading-3 text-gray-600">Curriculum</p>
+                                <p class="text-base text-left leading-3 text-gray-600">Communication</p>
+                            </div>
+                        </div>
+                        <!-- pop up on input -->
+                    </div>
+                    <button onclick="show2('searchItems')" aria-label="toggler">
+                        <svg id="navOpen" class="" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18" stroke="#4B5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M6 6L18 18" stroke="#4B5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div id="nav" class="-translate-x-full transform ease-in-out transition duration-500 w-full h-full bg-gray-600 bg-opacity-80">
+                <div class="w-full sm:w-64 flex-col bg-white h-full flex justify-between items-start px-2 md:px-4 pb-4">
+                    <div class="flex flex-col jusitfy-start items-start w-full">
+                        <button class="py-2 text-gray-600 focus:text-blue-700 text-left border-b-2 w-full focus:outline-none focus:border-blue-700 border-transparent">
+                            <a href="/" class="text-sm focus:outline-none font-medium leading-4 w-full px-2 md:px-4 py-3 hover:bg-blue-50 hover:text-blue-700 rounded"><i class="fas fa-home"></i>&nbsp;Início</a>
+                        </button>
+                        <button class="py-2 text-gray-600 focus:text-blue-700 text-left border-b-2 w-full focus:outline-none focus:border-blue-700 border-transparent">
+                            <a href="/discord" class="text-sm focus:outline-none font-medium leading-4 w-full px-2 md:px-4 py-3 hover:bg-blue-50 hover:text-blue-700 rounded"><i class="fas fa-link"></i>&nbsp;Servidor</a>
+                        </button>
+                        <button class="py-2 text-gray-600 focus:text-blue-700 text-left border-b-2 w-full focus:outline-none focus:border-blue-700 border-transparent">
+                            <a href="/add" class="text-sm focus:outline-none font-medium leading-4 w-full px-2 md:px-4 py-3 hover:bg-blue-50 hover:text-blue-700 rounded"><i class="fas fa-robot"></i>&nbsp;Adicionar Bot</a>
+                        </button>
+                        <% if (!user) { %>
+                            <button class="py-2 text-gray-600 focus:text-blue-700 text-left border-b-2 w-full focus:outline-none focus:border-blue-700 border-transparent">
+                                <a href="/login" class="text-sm focus:outline-none font-medium leading-4 w-full px-2 md:px-4 py-3 hover:bg-blue-50 hover:text-blue-700 rounded"><i class="fas fa-sign-in-alt"></i>&nbsp;Login</a>
+                            </button>
+                        <% } %>
+                    </div>
+                    <div class="mt-96 w-full flex justify-end">
+                        <button class="p-3 focus:outline-none rounded text-xs font-medium leading-3 w-full text-blue-700 bg-blue-50 focus:bg-blue-700 focus:text-white text-gray-600">Upgrade Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile and Ipad Screen size end -->
+        <!--  -->
+        <script>
+            let popup = document.getElementById("popup");
+            const showDiv = (flag) => {
+                if (flag === false) {
+                    popup.classList.add("hidden");
+                }
+                if (flag.value.length >= 1) {
+                    popup.classList.remove("hidden");
+                } else if (flag.value.length >= 0) {
+                    popup.classList.add("hidden");
+                }
+            };
+
+            let popup2 = document.getElementById("popup2");
+            const showDiv2 = (flag) => {
+                if (flag.value.length >= 1) {
+                    popup2.classList.remove("hidden");
+                } else if (flag.value.length >= 0) {
+                    popup2.classList.add("hidden");
+                }
+            };
+
+            function showDropdown() {
+                var dropdown = document.getElementById("dropdown");
+                dropdown.classList.toggle("hidden");
+            }
+
+            const show = (id) => {
+                document.getElementById(id).classList.toggle("-translate-x-full");
+                document.getElementById(id + "Open").classList.toggle("hidden");
+                document.getElementById(id + "Close").classList.toggle("hidden");
+                document.getElementById(id + "SearchandAvatar").classList.toggle("hidden");
+            };
+
+            const show2 = (id) => {
+                document.getElementById(id).classList.toggle("hidden");
+                document.getElementById(id + "Second").classList.toggle("hidden");
+            };
+        </script>
+    

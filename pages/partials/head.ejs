@@ -1,4 +1,8 @@
 <title>Bots de Discord</title>
+<script async src="https://arc.io/widget.min.js#c6ArjCuf"></script>
+<script src="/scripts/darkmode.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 <meta name='dmca-site-verification' content='emNRZk9YTXBtZ3hxM1lwY1dKNEpyRk5EQXh4VXVCS1VuNGhkZmMyRXQ2az01' />
 <link rel="icon" href="<%= bot.user.avatarURL %>">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
@@ -15,3 +19,52 @@
 <meta name="theme-color" content="#3498DB">
 <meta content="600" property="og:ttl">
 <meta content="<%= bot.user.avatarURL %>" property="og:image">
+<!-- LOADING FILES -->
+<div class="loa">
+    <img class="avatar" src="<%= bot.user.avatarURL %>" width="60" height="60">
+</div>
+<script>
+    var lo = document.querySelector(".loa");
+    window.addEventListener("load", vanish)
+    function vanish() {
+        lo.classList.add("suma");
+    }
+</script>
+<style>
+      .loa {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: #3298DC;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .loa img {
+        width: 60px;
+        height: 60px;
+      }
+      .suma {
+        animation: vanish 1s forwards;
+      }
+      @keyframes vanish {
+        100% {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+</style>
+<script>
+    function addDarkmodeWidget() {
+        new Darkmode({
+            backgroundColor: '#ADE8F4'
+            , mixColor: '#d6d6d6'
+            , saveInCookies: true
+            , label: '🌓'
+            , autoMatchOsTheme: true
+        , }).showWidget();
+    }
+    window.addEventListener('load', addDarkmodeWidget);
+</script>

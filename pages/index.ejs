@@ -12,31 +12,42 @@
                 Bots de Discord
             </h1>
             Encontre bots únicos para seu servidor do discord, de maneira facil!
-        </div>
+        </div> 
         <div class="columns mt-5 is-multiline is-centered mt-5">
             <% bots.forEach((botc) => { %>
-            <div style="width: 450px; max-width: 90vw" class="column is-6">
-                <div class="card">
-                    <div class="media">
-                        <div class="media-left">
-                            <figure class="image is-48x48">
-                                <img src="<%= botc.avatar %>" width="48" heigth="48" class="avatar" alt="Placeholder image">
-                            </figure>
+                <div class="flex items-center justify-center py-8 px-4">
+                    <div class="card md:w-96 rounded shadow-lg py-4 px-5">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-center mb-4 lg:mb-0 mr-10">
+                                <div class="w-14 h-14 bg-cover rounded-md mr-3">
+                                    <img tabindex="0"  src="<%= botc.avatar %>" alt="person" class="focus:outline-none rounded-full h-full w-full overflow-hidden shadow" />
+                                </div>
+                                <div>
+                                    <a tabindex="0" class="text-sm font-bold leading-4"><%= botc.name %></a>
+                                </div>
+                            </div>
                         </div>
-                        <p class="title is-4"><%= botc.name %></p>
-                    </div>
-                    <div class="card-content">
-                        <div class="content">
-                            <%= botc.descc %>
+                        <p tabindex="0" class="focus:outline-none pt-4 text-xs leading-4"><%= botc.descc %></p>
+                        <br>
+                        <div>
+                            <a href="/bots/<%= botc.bot %>">
+                                <button class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:bg-indigo-500 hover:bg-indigo-500 ml-2 sm:ml-3 font-normal focus:outline-none bg-indigo-700 dark:hover:bg-indigo-700 transition duration-150 ease-in-out  dark:bg-indigo-600 rounded text-white px-4 py-2 text-sm">Ver</button>
+                            </a>
+                            <a href="/bots/<%= botc.bot %>/add">
+                                <button class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:bg-indigo-500 hover:bg-indigo-500 ml-2 sm:ml-3 font-normal focus:outline-none bg-indigo-700 dark:hover:bg-indigo-700 transition duration-150 ease-in-out  dark:bg-indigo-600 rounded text-white px-4 py-2 text-sm">Adicionar</button>
+                            </a>
+                            <a href="/bots/<%= botc.bot %>/vote">
+                                <button class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:bg-indigo-500 hover:bg-indigo-500 ml-2 sm:ml-3 font-normal focus:outline-none bg-indigo-700 dark:hover:bg-indigo-700 transition duration-150 ease-in-out  dark:bg-indigo-600 rounded text-white px-4 py-2 text-sm">Votar</button>
+                            </a>
                         </div>
                     </div>
-                    <footer class="card-footer">
-                        <a href="/bots/<%= botc.bot %>" class="card-footer-item">Ver</a>
-                        <a href="/bots/<%= botc.bot %>/add" class="card-footer-item">Adicionar</a>
-                        <a href="/bots/<%= botc.bot %>/vote" class="card-footer-item">Votar</a>
-                    </footer>
                 </div>
-            </div>
+                <script>
+                    function dropdownHandler(element) {
+                        let single = element.getElementsByTagName("ul")[0];
+                        single.classList.toggle("hidden");
+                    }
+                </script>
             <% }); %>
         </div>
     </div>

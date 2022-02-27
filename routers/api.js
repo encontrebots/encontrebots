@@ -4,7 +4,7 @@ const config = require('../config/config.js');
 const bot = require('../bot/bot');
 const router = express.Router();
 
-router.get('/callback', passport.authenticate('discord', { failureRedirect: '/' }), async function(req, res) {
+router.get('/callback', passport.authenticate('discord', { prompt: 'none', failureRedirect: '/' }), async function(req, res) {
 	if (!req.user.id || !req.user.guilds) {
 		res.redirect('/');
 	}

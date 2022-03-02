@@ -7,8 +7,8 @@ router.get('/', async (req, res) => {
 	const model = require('../schemas/ServerSchema');
 	const servers = await model.find({ status: 'verified' });
 	for (let i = 0; i < servers.length; i++) {
-		console.log(serverInfo[i]);
 		const serverInfo = await bot.getRESTGuild(servers[i].server) || null;
+		console.log(serverInfo[i]);
 		servers[i].name = serverInfo.name;
 		servers[i].icon = serverInfo.iconURL;
 	}

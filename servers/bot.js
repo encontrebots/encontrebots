@@ -31,6 +31,15 @@ bot.on('interactionCreate', async (interaction) => {
 		else {
 			data.bump = Date.now();
 			data.save();
+			return interaction.createMessage({
+				embeds: [
+					{
+						title: ':white_check_mark: | Você impulsionou o servidor!',
+						color: 0x00FF00,
+						description: 'Você pode usar isso novamente em `' + Math.round((TwoHour - timeDiff) / 1000) + '` segundos.\n⤷ https://botsdediscord.herokuapp.com/servers/' + interaction.channel.guild.id
+					}
+				]
+			});
 		}
 	}
 });

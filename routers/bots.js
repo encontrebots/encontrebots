@@ -89,45 +89,13 @@ router.get('/:id', async (req, res) => {
 	else if (req.session.passport?.user.id !== botDB.owner) {
 		botOwner = false;
 	}
-	const { get } = require('axios');
-	if (botDB.stats?.servers === 0 || botDB.stats?.servers === null || !botDB.stats?.servers) {
-		try {
-			await get('https://botblock.org/api/bots/' + req.params.id).then(async (response) => {
-				botDB.stats = {};
-				botDB.stats.servers = response.data.server_count;
-				botDB.stats.users = 0;
-				botDB.stats.shards = 0;
-				await botDB.save();
-				setTimeout(() => {
-					res.render('viewbot', {
-						boti: botDB,
-						botDesc: markdown.render(botDB.descl),
-						bot: bot,
-						botOwner: botOwner,
-						user: req.session.passport?.user || null,
-					});
-				}, 1000);
-			});
-		}
-		catch (e) {
-			res.render('viewbot', {
-				boti: botDB,
-				botDesc: markdown.render(botDB.descl),
-				bot: bot,
-				botOwner: botOwner,
-				user: req.session.passport?.user || null,
-			});
-		}
-	}
-	else {
-		res.render('viewbot', {
-			boti: botDB,
-			botDesc: markdown.render(botDB.descl),
-			bot: bot,
-			botOwner: botOwner,
-			user: req.session.passport?.user || null,
-		});
-	}
+	res.render('viewbot', {
+		boti: botDB,
+		botDesc: markdown.render(botDB.descl),
+		bot: bot,
+		botOwner: botOwner,
+		user: req.session.passport?.user || null,
+	});
 });
 
 router.get('/:id/add', async (req, res) => {

@@ -12,7 +12,7 @@
             <h1 class="title">
                 Editar Bot
             </h1>
-            Preencha o formulário para adicionar um bot em nossa botlist.
+            Preencha o formulário para editar um bot em nossa botlist.
             <div class="tabs">
                 <ul>
                     <li><a href="/bots/<%= boti.bot %>/edit">Geral</a></li>
@@ -27,7 +27,11 @@
                 <div class="control">
                     <input value="<%= boti.apikey %>" id="key" name="key" class="input" type="text" placeholder="https://seudominio.com" disabled>
                 </div>
+                <% if (boti.apikey) { %>
+                <button type="submit" class="button is-success">Regenerar Key</button>
+                <% } else { %>
                 <button type="submit" class="button is-success">Gerar Key</button>
+                <% } %>
             </div>
         </form>
     </div>

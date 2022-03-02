@@ -1,0 +1,63 @@
+<html>
+
+<head>
+    <%- include('./partials/head'); %>
+</head>
+
+<body>
+    <%- include('./partials/navbar'); %>
+    <br>
+    <div class="hero-body">
+        <div class="box">
+            <h1 class="title">
+                Adicionar Servidor
+            </h1>
+            Preencha o formulário para adicionar um servidor em nossa serverlist.
+        </div>
+        <br>
+        <form action="/api/servers/add" method="post">
+            <div class="field">
+                <label class="label">Servidor</label>
+                <div class="select is-multiple">
+                    <select id="server" name="server" size="6">
+                        <% servers.forEach((sv) => { %>
+                        <option value="<%= sv.id %>"><%= sv.name %></option>
+                        <% }); %>
+                    </select>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Descrição Curta</label>
+                <div class="control">
+                    <input id="descc" name="descc" class="input" type="text" placeholder="Um servidor revolucionario para discord.">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Descrição Longa</label>
+                <div class="control">
+                    <textarea id="descl" name="descl" class="textarea" placeholder="Um servidor revolucionario capaz de fazer XYZABC, com funcionalidades ABC, que tem o site XYZ."></textarea>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Imagem de fundo</label>
+                <div class="control">
+                    <input id="image" name="image" class="input" type="text" placeholder="https://imgur.com/abalabahabahaha.png">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Link do Servidor</label>
+                <div class="control">
+                    <input id="support" name="support" class="input" type="text" placeholder="https://discord.gg/WJjVSSyFea">
+                </div>
+            </div>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-link">Adicionar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <%- include('./partials/footer'); %>
+</body>
+
+</html>

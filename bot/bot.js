@@ -1,6 +1,6 @@
 const config = require('../config/config.js');
 const Eris = require('eris');
-const bot = new Eris.Client(config.discord.clientToken, {
+const bot = new Eris.Client('Bot ' + config.discord.clientToken, {
 	restMode: true,
 	intents: ['all'],
 	defaultImageSize: 4096
@@ -9,7 +9,7 @@ const bot = new Eris.Client(config.discord.clientToken, {
 bot.eris = Eris;
 
 bot.on('ready', async () => {
-	console.log('[BOT] Estou pronto!'.green);
+	console.log('[BDD] Estou pronto!'.green);
 	require('../database/mongoConnect.js');
 	const DatabaseManager = require('denky-database');
 	bot.db = new DatabaseManager('./database/db.json');

@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <%- include('./partials/head'); %>
+</head>
+
+<body>
+    <%- include('./partials/navbar'); %>
+    <div class="hero-body">
+        <div class="box">
+            <h1 class="title">
+                Servidores de Discord
+            </h1>
+            Encontre servidores únicos para seu discord, de maneira facil!
+        </div> 
+        <div class="columns mt-5 is-multiline is-centered mt-5">
+            <% servers.forEach((botc) => { %>
+                <div class="flex items-center justify-center py-8 px-4">
+                    <div class="card md:w-96 rounded shadow-lg py-4 px-5">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-center mb-4 lg:mb-0 mr-10">
+                                <div class="w-14 h-14 bg-cover rounded-md mr-3">
+                                    <img tabindex="0"  src="<%= botc.icon %>" alt="person" class="focus:outline-none rounded-full h-full w-full overflow-hidden shadow" />
+                                </div>
+                                <div>
+                                    <a tabindex="0" class="text-sm font-bold leading-4"><%= botc.name %></a>
+                                </div>
+                            </div>
+                        </div>
+                        <p tabindex="0" class="focus:outline-none pt-4 text-xs leading-4"><%= botc.descc %></p>
+                        <br>
+                        <div>
+                            <a href="/servers/<%= botc.server %>">
+                                <button class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:bg-indigo-500 hover:bg-indigo-500 ml-2 sm:ml-3 font-normal focus:outline-none bg-indigo-700 dark:hover:bg-indigo-700 transition duration-150 ease-in-out  dark:bg-indigo-600 rounded text-white px-4 py-2 text-sm">Ver</button>
+                            </a>
+                            <a href="/servers/<%= botc.server %>/add">
+                                <button class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:bg-indigo-500 hover:bg-indigo-500 ml-2 sm:ml-3 font-normal focus:outline-none bg-indigo-700 dark:hover:bg-indigo-700 transition duration-150 ease-in-out  dark:bg-indigo-600 rounded text-white px-4 py-2 text-sm">Adicionar</button>
+                            </a>
+                            <a href="/servers/<%= botc.server %>/vote">
+                                <button class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:bg-indigo-500 hover:bg-indigo-500 ml-2 sm:ml-3 font-normal focus:outline-none bg-indigo-700 dark:hover:bg-indigo-700 transition duration-150 ease-in-out  dark:bg-indigo-600 rounded text-white px-4 py-2 text-sm">Votar</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function dropdownHandler(element) {
+                        let single = element.getElementsByTagName("ul")[0];
+                        single.classList.toggle("hidden");
+                    }
+                </script>
+            <% }); %>
+        </div>
+    </div>
+    <%- include('./partials/footer'); %>
+</body>
+
+</html>

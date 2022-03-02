@@ -5,6 +5,7 @@ module.exports = {
 		'clientSecret': process.env.CLIENT_SECRET,
 		'clientToken': process.env.CLIENT_TOKEN,
 		'callbackURL': process.env.CALLBACK_URL,
+		'serverToken': process.env.SERVER_TOKEN,
 		'guild': {
 			'id': '938779759658287175',
 			'roles': {
@@ -27,7 +28,7 @@ module.exports = {
 	},
 	'oauth2': {
 		'prompt': 'none',
-		'scopes': ['identify']
+		'scopes': ['identify', 'guilds']
 	},
 	'tags': [
 		'Levels',

@@ -69,12 +69,18 @@ passport.use(new Strategy({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+// Main Routers
 app.use('/', require('./routers/index'));
-app.use('/api', require('./routers/api'));
 app.use('/bots', require('./routers/bots'));
-
+app.use('/servers', require('./routers/servers'));
+// API Routers
+app.use('/api', require('./routers/api/index'));
+app.use('/api/bots', require('./routers/api/bots'));
+app.use('/api/servers', require('./routers/api/servers'));
+app.use('/api/users', require('./routers/api/users'));
+// Startitng the server
 app.listen(PORT, () => {
 	require('./bot/bot.js');
+	require('./servers/bot.js');
 	console.log(`[SERVER] Listening on port ${config.port}`.green);
 });

@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <%- include('./partials/head'); %>
+</head>
+
+<body>
+    <%- include('./partials/navbar'); %>
+    <br>
+    <div class="hero-body">
+        <div class="box">
+            <h1 class="title">
+                Editar Servidor
+            </h1>
+            Preencha o formulário para editar um servidor em nossa serverlist.
+        </div>
+        <br>
+        <form action="/api/servers/edit" method="post">
+            <input type="hidden" name="guildid" id="guildid" value="<%= serveri.server %>">
+            <div class="field">
+                <label class="label">Descrição Curta</label>
+                <div class="control">
+                    <input id="descc" value="<%= serveri.descc %>" name="descc" class="input" type="text" placeholder="Um servidor revolucionario para discord.">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Descrição Longa</label>
+                <div class="control">
+                    <textarea id="descl" name="descl" class="textarea" placeholder="Um servidor revolucionario capaz de fazer XYZABC, com funcionalidades ABC, que tem o site XYZ."><%= serveri.descl %></textarea>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Imagem de fundo</label>
+                <div class="control">
+                    <input value="<%= serveri.background %>" id="image" name="image" class="input" type="text" placeholder="https://imgur.com/abalabahabahaha.png">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Link do Servidor</label>
+                <div class="control">
+                    <input value="<%= serveri.invite %>" id="support" name="support" class="input" type="text" placeholder="https://discord.gg/WJjVSSyFea">
+                </div>
+            </div>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-link">Editar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <%- include('./partials/footer'); %>
+</body>
+
+</html>

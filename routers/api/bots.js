@@ -1,25 +1,10 @@
 const express = require('express');
-const passport = require('passport');
-const config = require('../config/config.js');
-const bot = require('../bot/bot');
+const config = require('../../config/config.js');
+const bot = require('../../bot/bot');
 const router = express.Router();
 
-router.get('/callback', passport.authenticate('discord', { prompt: 'none', failureRedirect: '/' }), async function(req, res) {
-	if (!req.user.id || !req.user.guilds) {
-		res.redirect('/');
-	}
-	else {res.redirect('/dashboard');}
-});
-
-router.get('/alternative/bots/:id', async (req, res) => {
-	const { get } = require('axios');
-	await get('https://botblock.org/api/bots/' + req.params.id).then(async (resp) => {
-		res.status(200).json(resp.data);
-	});
-});
-
-router.post('/bots/:botid/delete', async (req, res) => {
-	const model = require('../schemas/BotSchema');
+router.post('/:botid/delete', async (req, res) => {
+	const model = require('../../schemas/BotSchema');
 	if (req.headers.authorization !== process.env.APIAUTH) return;
 	const botid = req.params.botid;
 	model.findOneAndDelete({ bot: botid });
@@ -27,7 +12,7 @@ router.post('/bots/:botid/delete', async (req, res) => {
 });
 
 router.post('/stats/bots', async (req, res) => {
-	const model = require('../schemas/BotSchema');
+	const model = require('../../schemas/BotSchema');
 	try {
 		const botData = await model.findOne({ apikey: req.body.data.auth });
 		if (!botData) {
@@ -48,9 +33,9 @@ router.post('/stats/bots', async (req, res) => {
 	}
 });
 
-router.post('/bots/:botid/vote', async (req, res) => {
-	const model = require('../schemas/BotSchema');
-	const model2 = require('../schemas/UserSchema');
+router.post('/:botid/vote', async (req, res) => {
+	const model = require('../../schemas/BotSchema');
+	const model2 = require('../../schemas/UserSchema');
 
 	const botid = req.params.botid;
 	const userid = req.body.userid;
@@ -83,17 +68,8 @@ router.post('/bots/:botid/vote', async (req, res) => {
 	}
 });
 
-router.get('/users/:id', async (req, res) => {
-	const userInfo = await bot.getRESTUser(req.params.id).catch((e) => {
-		res.status(500).send({
-			error: e.message
-		});
-	});
-	res.json(userInfo);
-});
-
-router.get('/bots/:botid', async (req, res) => {
-	const model = require('../schemas/BotSchema');
+router.get('/:botid', async (req, res) => {
+	const model = require('../../schemas/BotSchema');
 	const botDB = await model.findOne({ bot: req.params.botid });
 	if (botDB) {
 		const ownerInfo = await bot.getRESTUser(botDB.owner);
@@ -116,8 +92,8 @@ router.get('/bots/:botid', async (req, res) => {
 	}
 });
 
-router.post('/bots/:botid/genkey', async (req, res) => {
-	const model = require('../schemas/BotSchema');
+router.post('/:botid/genkey', async (req, res) => {
+	const model = require('../../schemas/BotSchema');
 	const botDB = await model.findOne({ bot: req.params.botid });
 	if (!botDB) {
 		res.redirect(`/bots/${req.params.botid}/api?type=unknown`);
@@ -131,8 +107,8 @@ router.post('/bots/:botid/genkey', async (req, res) => {
 	}
 });
 
-router.post('/bots/:botid/edit', async (req, res) => {
-	const model = require('../schemas/BotSchema');
+router.post('/:botid/edit', async (req, res) => {
+	const model = require('../../schemas/BotSchema');
 	const botDB = await model.findOne({ bot: req.params.botid });
 	if (!botDB) {
 		res.redirect(`/bots/${req.params.botid}/edit?type=unknown`);
@@ -155,8 +131,8 @@ router.post('/bots/:botid/edit', async (req, res) => {
 	}
 });
 
-router.post('/bots/:id/approve', async (req, res) => {
-	const model = require('../schemas/BotSchema');
+router.post('/:id/approve', async (req, res) => {
+	const model = require('../../schemas/BotSchema');
 	const data = await model.findOne({ bot: req.params.id });
 	if (data) {
 		data.status = 'verified';
@@ -168,8 +144,8 @@ router.post('/bots/:id/approve', async (req, res) => {
 	channel.createMessage(`:white_check_mark: <@${data.owner}> **|** O Bot **${user.username}** foi aprovado. [<@${req.session.passport?.user.id}>].`);
 });
 
-router.post('/bots/:id/deny', async (req, res) => {
-	const model = require('../schemas/BotSchema');
+router.post('/:id/deny', async (req, res) => {
+	const model = require('../../schemas/BotSchema');
 	const data = await model.findOne({ bot: req.params.id });
 	const owner = data.owner;
 	await model.findOneAndDelete({ bot: req.params.id });
@@ -179,8 +155,8 @@ router.post('/bots/:id/deny', async (req, res) => {
 	res.redirect('/queue?type=reproved');
 });
 
-router.post('/bots/add', async (req, res) => {
-	const model = require('../schemas/BotSchema');
+router.post('/add', async (req, res) => {
+	const model = require('../../schemas/BotSchema');
 	const user = await bot.getRESTUser(req.body.botid);
 	if (await model.findOne({ bot: req.body.botid })) {
 		res.redirect('/add?type=alderay');

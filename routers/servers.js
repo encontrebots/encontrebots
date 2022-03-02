@@ -1,5 +1,5 @@
 const express = require('express');
-const bot = require('../bot/bot.js');
+const bot = require('../servers/bot.js');
 const markdown = require('markdown-it')();
 const router = express.Router();
 
@@ -8,7 +8,6 @@ router.get('/', async (req, res) => {
 	const servers = await model.find({ status: 'verified' });
 	for (let i = 0; i < servers.length; i++) {
 		const serverInfo = await bot.getRESTGuild(servers[i].server) || null;
-		console.log(serverInfo[i]);
 		servers[i].name = serverInfo.name;
 		servers[i].icon = serverInfo.iconURL;
 	}

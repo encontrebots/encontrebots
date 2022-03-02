@@ -7,7 +7,7 @@ router.post('/add', async (req, res) => {
 	await bot.getRESTGuild(req.body.server).catch(async () => {
 		return res.redirect('https://discordapp.com/oauth2/authorize?client_id=948601322146517062&guild_id=' + req.body.server + '&scope=bot%20applications.commands&permissions=19473');
 	});
-	if (await model.findOne({ bot: req.body.server })) {
+	if (await model.findOne({ server: req.body.server })) {
 		res.redirect('/add?type=alderaysv');
 	}
 	else {
@@ -19,8 +19,8 @@ router.post('/add', async (req, res) => {
 			invite: req.body.support,
 			background: req.body.image || 'https://tuk-cdn.s3.amazonaws.com/assets/components/grid_cards/gc_29.png',
 		});
+		return res.redirect('/servers/' + req.body.server);
 	}
-	return res.redirect('/servers/' + req.body.server);
 });
 
 router.post('/edit', async (req, res) => {

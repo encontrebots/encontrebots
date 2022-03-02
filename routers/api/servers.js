@@ -5,7 +5,7 @@ const router = express.Router();
 router.post('/add', async (req, res) => {
 	const model = require('../../schemas/ServerSchema');
 	await bot.getRESTGuild(req.body.server).catch(async () => {
-		res.redirect('https://discordapp.com/oauth2/authorize?client_id=948601322146517062&guild_id=' + req.body.server + '&scope=bot%20applications.commands&permissions=19473');
+		return res.redirect('https://discordapp.com/oauth2/authorize?client_id=948601322146517062&guild_id=' + req.body.server + '&scope=bot%20applications.commands&permissions=19473');
 	});
 	if (await model.findOne({ bot: req.body.server })) {
 		res.redirect('/add?type=alderaysv');
@@ -20,7 +20,7 @@ router.post('/add', async (req, res) => {
 			background: req.body.image || 'https://tuk-cdn.s3.amazonaws.com/assets/components/grid_cards/gc_29.png',
 		});
 	}
-	res.redirect('/servers/' + req.body.server);
+	return res.redirect('/servers/' + req.body.server);
 });
 
 router.post('/edit', async (req, res) => {

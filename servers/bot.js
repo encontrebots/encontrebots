@@ -44,5 +44,9 @@ bot.on('interactionCreate', async (interaction) => {
 	}
 });
 
+bot.on('disconnect', async () => {
+	await bot.connect();
+});
+
 bot.connect();
 module.exports = bot;

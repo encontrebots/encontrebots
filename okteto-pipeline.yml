@@ -1,7 +1,7 @@
 icon: https://apps.okteto.com/movies/icon.png
 deploy:
-  - yarn
-  - yarn start
+  - npm install
+  - npm start
 devs:
   - api/okteto.yml
   - frontend/okteto.yml

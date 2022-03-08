@@ -1,0 +1,7 @@
+icon: https://apps.okteto.com/movies/icon.png
+deploy:
+  - yarn
+  - yarn start
+devs:
+  - api/okteto.yml
+  - frontend/okteto.yml

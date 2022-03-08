@@ -1,5 +1,17 @@
 <script type="text/javascript" src="/scripts/dropdown.js"></script>
 <script type="text/javascript" src="/scripts/notifications.js"></script>
+<script>
+    function addDarkmodeWidget() {
+        new Darkmode({
+            backgroundColor: '#ADE8F4'
+            , mixColor: '#d6d6d6'
+            , saveInCookies: true
+            , label: '🌓'
+            , autoMatchOsTheme: true
+        , }).showWidget();
+    }
+    window.addEventListener('load', addDarkmodeWidget);
+    </script>
 <hr>
 <div class="mx-auto container py-16 xl:px-20 lg:px-12 sm:px-6 px-4">
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 md:gap-8 gap-4">

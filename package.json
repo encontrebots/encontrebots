@@ -21,7 +21,7 @@
     "express-rate-limit": "^6.2.0",
     "express-session": "^1.17.2",
     "express-session-level": "^1.0.0",
-    "level": "^7.0.1",
+    "level": "^8.0.0",
     "markdown-it": "^12.3.2",
     "mongoose": "^6.2.0",
     "passport": "^0.5.2",

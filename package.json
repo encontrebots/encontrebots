@@ -22,7 +22,7 @@
     "express-session": "^1.17.2",
     "express-session-level": "^1.0.0",
     "level": "^7.0.1",
-    "markdown-it": "^12.3.2",
+    "markdown-it": "^13.0.1",
     "mongoose": "^6.2.0",
     "passport": "^0.5.2",
     "passport-discord": "^0.1.4",

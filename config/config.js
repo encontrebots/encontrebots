@@ -7,15 +7,15 @@ module.exports = {
 		'callbackURL': process.env.CALLBACK_URL,
 		'serverToken': process.env.SERVER_TOKEN,
 		'guild': {
-			'id': '938779759658287175',
+			'id': '884494431334563871',
 			'roles': {
-				'verifier': '938801159810990150',
-				'verifiedBot': '938800923776516147',
-				'developer': '938800917262794832',
-				'pendentBot': '938800924321804318'
+				'verifier': '954508289390039131',
+				'verifiedBot': '884897535989256293',
+				'developer': '1007623946704781414',
+				'pendentBot': '1007623311104147606'
 			},
 			'channels': {
-				'logs': '938845976217661450',
+				'logs': '954509369251360789',
 			}
 		}
 	},

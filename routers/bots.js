@@ -76,6 +76,9 @@ router.get('/:id', async (req, res) => {
 	await getStaff(req, bot, config);
 	const model = require('../schemas/BotSchema');
 	const botDB = await model.findOne({ bot: req.params.id });
+	if (!botDB) {
+		return res.sendStatus(404);
+	}
 	const botuser = await bot.getRESTUser(req.params.id);
 	botDB.avatar = botuser.avatarURL;
 	botDB.name = botuser.username;
@@ -89,11 +92,13 @@ router.get('/:id', async (req, res) => {
 	else if (req.session.passport?.user.id !== botDB.owner) {
 		botOwner = false;
 	}
+	console.log(botDB);
 	res.render('viewbot', {
 		boti: botDB,
 		botDesc: markdown.render(botDB.descl),
 		bot: bot,
 		botOwner: botOwner,
+		status: botDB.stats,
 		user: req.session.passport?.user || null,
 	});
 });

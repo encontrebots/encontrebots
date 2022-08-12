@@ -44,6 +44,10 @@ router.get('/:id', async (req, res) => {
 	const model = require('../schemas/ServerSchema');
 	const botDB = await model.findOne({ server: req.params.id });
 
+	if (!botDB) {
+		return res.sendStatus(404);
+	}
+
 	const botuser = await bot.getRESTGuild(req.params.id).catch(async (e) => {
 		console.log(e);
 	});

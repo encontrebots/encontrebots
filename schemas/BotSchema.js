@@ -31,12 +31,15 @@ const Schema = mongoose.Schema({
 		type: Object,
 		servers: {
 			type: Number,
+			default: 0
 		},
 		users: {
 			type: Number,
+			default: 0
 		},
 		shards: {
 			type: Number,
+			default: 0
 		}
 	},
 	status: {

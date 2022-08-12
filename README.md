@@ -1,5 +1,5 @@
-### Bots de Discord
-- Botlist para comunidade de desenvolvedores brasileiros **bots de discord**.
+### Blue Phoenix Bots
+- Botlist para comunidade de desenvolvedores brasileiros **Blue Phoenix Bots**.
 ### Extra terms:
 - You have the permission to shoot and share videos, but you have to mention us and our server in the video.
 - You cannot use our branding anywhere on your site & claim it as your own.

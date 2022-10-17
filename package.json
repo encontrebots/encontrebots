@@ -10,7 +10,7 @@
     "lint": "eslint --fix --ext .js --ignore-path .gitignore ."
   },
   "dependencies": {
-    "axios": "^0.26.0",
+    "axios": "^1.1.3",
     "body-parser": "^1.19.1",
     "colors": "^1.4.0",
     "denky-database": "^1.0.6",

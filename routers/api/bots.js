@@ -99,7 +99,7 @@ router.post('/:botid/genkey', async (req, res) => {
 		res.redirect(`/bots/${req.params.botid}/api?type=unknown`);
 	}
 	else {
-		const newKey = 'bp_' + Math.random().toString(36).slice(2, 10);
+		const newKey = 'botsdediscordtoken_' + Math.random().toString(36).slice(2, 10);
 		const botd = await model.findOne({ bot: req.params.botid });
 		botd.apikey = newKey;
 		botd.save();
@@ -172,11 +172,6 @@ router.post('/add', async (req, res) => {
 			website: req.body.website || '',
 			tags: req.body.tags || [],
 			owner: req.session.passport?.user.id,
-			stats: {
-				servers: 0,
-				users: 0,
-				shards: 0,
-			},
 			status: 'pending',
 		}).then(async () => {
 			const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);

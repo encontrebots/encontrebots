@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-concat */
 const express = require('express');
 const bot = require('../../servers/bot');
 const router = express.Router();
@@ -44,9 +43,9 @@ router.post('/edit', async (req, res) => {
 router.post('/report', async (req, res) => {
 	const guild = await bot.getRESTGuild(req.body.guildid);
 	guild.owner = await bot.getRESTUser(guild.ownerID);
-	const channel = await bot.getRESTChannel('1007635034045427823');
+	const channel = await bot.getRESTChannel('939476624393502730');
 
-	channel.createMessage('> <@&884611561333866527>\n⤷ Novo servidor reportado!\n>>> **Servidor:** ' + guild.name + '\n**Dono:** ' + guild.owner.username + '#' + guild.owner.discriminator + `\`(${guild.owner.id})\`` + '\n**ID do Servidor:** ' + guild.id);
+	channel.createMessage('> <@&938801109995253780>\n⤷ Novo servidor reportado!\n\n**Guild:** ' + guild.name + '\n**Owner:** ' + guild.owner.username + '\n**ID:** ' + guild.id);
 	res.redirect(`/servers/${req.body.guildid}?type=report`);
 });
 

@@ -95,7 +95,7 @@ router.get('/add', async (req, res) => {
 });
 
 router.get('/discord', async (req, res) => {
-	res.redirect('https://discord.gg/WJjVSSyFea');
+	res.redirect('https://discord.gg/seWTF9P2Q5');
 });
 
 module.exports = router;

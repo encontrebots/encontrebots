@@ -68,7 +68,7 @@ router.get('/:id/discord', async (req, res) => {
 		return res.redirect('/');
 	}
 	else {
-		res.redirect(botd.support || 'https://discord.gg/WJjVSSyFea');
+		res.redirect(botd.support || 'https://discord.gg/seWTF9P2Q5');
 	}
 });
 
@@ -77,6 +77,13 @@ router.get('/:id', async (req, res) => {
 	const model = require('../schemas/BotSchema');
 	const botDB = await model.findOne({ bot: req.params.id });
 	const botuser = await bot.getRESTUser(req.params.id);
+	if (!botDB.stats) {
+		botDB.stats = {
+			servers: 0,
+			users: 0,
+			shards: 0,
+		}
+	}
 	botDB.avatar = botuser.avatarURL;
 	botDB.name = botuser.username;
 	let botOwner;

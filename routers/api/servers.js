@@ -43,9 +43,9 @@ router.post('/edit', async (req, res) => {
 router.post('/report', async (req, res) => {
 	const guild = await bot.getRESTGuild(req.body.guildid);
 	guild.owner = await bot.getRESTUser(guild.ownerID);
-	const channel = await bot.getRESTChannel('939476624393502730');
+	const channel = await bot.getRESTChannel('1120436091078586440');
 
-	channel.createMessage('> <@&938801109995253780>\n⤷ Novo servidor reportado!\n\n**Guild:** ' + guild.name + '\n**Owner:** ' + guild.owner.username + '\n**ID:** ' + guild.id);
+	channel.createMessage('# Report novo: <@&1120003184128167947>\n- **Servidor:** ' + guild.name + '\n- **Dono:** ' + guild.owner.username + ' (' + guild.owner.id + ')\n- **ID do Servidor:** ' + guild.id);
 	res.redirect(`/servers/${req.body.guildid}?type=report`);
 });
 

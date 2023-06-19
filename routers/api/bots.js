@@ -83,7 +83,7 @@ router.get('/:botid', async (req, res) => {
 			website: botDB.website,
 			tags: botDB.tags,
 			status: botDB.status,
-			owner: ownerInfo
+			owner: ownerInfo,
 		};
 		res.status(200).json(botObj);
 	}
@@ -123,6 +123,11 @@ router.post('/:botid/edit', async (req, res) => {
 		botd.website = req.body.website;
 		botd.tags = req.body.tags;
 		botd.status = botDB.status || 'pending';
+		botd.stats = {
+			servers: 0,
+			users: 0,
+			channels: 0
+		};
 		botd.save();
 		res.redirect(`/bots/${botDB.bot}?type=edited`);
 		const user = await bot.getRESTUser(req.params.botid);
@@ -142,6 +147,16 @@ router.post('/:id/approve', async (req, res) => {
 	const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
 	const user = await bot.getRESTUser(req.params.id);
 	channel.createMessage(`:white_check_mark: <@${data.owner}> **|** O Bot **${user.username}** foi aprovado. [<@${req.session.passport?.user.id}>].`);
+	const guild = await bot.getRESTGuild(config.discord.guild.id);
+	const member = await guild.getRESTMember(req.params.id);
+	const role = await guild.roles.get(config.discord.guild.roles.verifiedBot);
+	const role2 = await guild.roles.get(config.discord.guild.roles.pendentBot);
+	await member.removeRole(role2.id);
+	await member.addRole(role.id);
+	const dev = await guild.getRESTMember(data.owner);
+	if (!dev) return;
+	const role3 = await guild.roles.get(config.discord.guild.roles.developer);
+	await dev.addRole(role3.id);
 });
 
 router.post('/:id/deny', async (req, res) => {
@@ -168,11 +183,16 @@ router.post('/add', async (req, res) => {
 			descc: req.body.descc || 'Olá, sou um simples bot para discord!',
 			descl: req.body.descl || '### Olá, seja bem-vindo!\n\nPosso te ajudar com alguma coisa?\n\n- [Me Adicione!](/bots/' + req.body.botid + '/add)\n- [Discord!](/bots/' + req.body.botid + '/discord)',
 			prefix: req.body.prefix || '!',
-			support: req.body.support || 'discord.gg/WJjVSSyFea',
+			support: req.body.support || 'discord.gg/seWTF9P2Q5',
 			website: req.body.website || '',
 			tags: req.body.tags || [],
 			owner: req.session.passport?.user.id,
 			status: 'pending',
+			stats: {
+				servers: 0,
+				users: 0,
+				channels: 0
+			}
 		}).then(async () => {
 			const channel = await bot.getRESTChannel(config.discord.guild.channels.logs);
 			const devDB = await bot.db.get(`developer-${req.session.passport?.user.id}`);

@@ -1,0 +1,47 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+  deploy:
+    name: "Deploy to production"
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: lint
+    steps:
+      - name: Setup ssh
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/key
+          chmod 600 ~/.ssh/key
+          cat >>~/.ssh/config << END
+          Host prod
+            HostName $SSH_HOST
+            User $SSH_USER
+            Port $SSH_PORT
+            IdentityFile ~/.ssh/key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+      - name: Cloning repository
+        run: ssh prod 'cd botsdediscord && git fetch && git reset --hard origin/master'
+      - name: Building container
+        run: ssh prod 'bash -i -c "cd botsdediscord && docker build --cpuset-cpus=0 --memory="512m" . -t botsdediscord/web"'
+      - name: Stopping container
+        run: ssh prod 'bash -i -c "docker rm --force botsdediscord"'
+      - name: Starting container
+        run: ssh prod 'bash -i -c "docker run -p 3002:80 --network=adg-network -d --restart always --cpuset-cpus=0-5 --memory="512m" --name botsdediscord botsdediscord/web"'
+      - name: Clear cache
+        run: ssh prod 'bash -i -c "docker system prune -f"'

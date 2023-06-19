@@ -3,7 +3,6 @@
 .openode
 /node_modules
 /database.json
-yarn.lock
 
 ## CONFIG FILES
 

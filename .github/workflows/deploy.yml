@@ -1,4 +1,4 @@
-name: Deploy to Production
+name: Deploy
 on:
   push:
     branches:
@@ -7,7 +7,7 @@ jobs:
   deploy:
     name: "Deploy to production"
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Setup ssh
         run: |

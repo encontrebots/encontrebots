@@ -7,7 +7,7 @@ router.post('/:botid/delete', async (req, res) => {
 	const model = require('../../schemas/BotSchema');
 	if (req.body.headers.Authorization !== process.env.APIAUTH) return;
 	const botid = req.params.botid;
-	model.findOneAndDelete({ bot: botid });
+	await model.findOneAndDelete({ bot: botid });
 	res.sendStatus(200);
 });
 

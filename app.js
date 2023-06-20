@@ -1,6 +1,6 @@
 require('dotenv').config();
 require('colors');
-const rateLimit = require('express-rate-limit');
+// const rateLimit = require('express-rate-limit');
 const config = require('./config/config.js');
 const PORT = process.env.PORT || config.port;
 const express = require('express');
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const SessionStore = require('express-session-level')(session);
 const db = require('level')('./sessions');
-
+/*
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000,
 	max: 100,
@@ -33,7 +33,7 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
-
+*/
 app.use(session({
 	secret: config.server.secret,
 	saveUninitialized: false,

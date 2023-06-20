@@ -4,7 +4,7 @@ const config = require('../config/config.js');
 const DatabaseManager = require('denky-database');
 bot.db2 = new DatabaseManager('./database.json');
 
-mongoose.connect(config.database.uri, async () => {
+mongoose.connect(config.database.uri).then(async () => {
 	async function randomBot () {
 		const canal = await bot.getRESTChannel(config.discord.guild.channels.randomBots);
 		const model = require('../schemas/BotSchema');

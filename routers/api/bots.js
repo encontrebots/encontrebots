@@ -199,7 +199,7 @@ router.post('/add', async (req, res) => {
 			if (!devDB) {
 				await bot.db.set(`developer-${req.session.passport?.user.id}`, true);
 			}
-			channel.createMessage(`:white_check_mark: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi adicionado com sucesso. | <@&${config.discord.guild.roles.verifier}>`);
+			channel.createMessage(`:white_check_mark: <@${req.session.passport?.user.id}> **|** O Bot **${user.username}** foi adicionado com sucesso. [<@&${config.discord.guild.roles.verifier}>]`);
 			setTimeout(() => {
 				res.redirect('/add?type=botadded');
 			}, 3000);

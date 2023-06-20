@@ -1,1 +1,7 @@
+/database/db.example.json
+/assets
 /node_modules
+/templates
+.env.example
+README.md
+LICENSE

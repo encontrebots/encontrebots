@@ -34,6 +34,6 @@ jobs:
       - name: Stopping container
         run: ssh prod 'bash -i -c "docker rm --force botsdediscord"'
       - name: Starting container
-        run: ssh prod 'bash -i -c "docker run -p 3002:80 --network=adg-network -d --restart always --cpuset-cpus=0-5 --memory="512m" --name botsdediscord botsdediscord/web"'
+        run: ssh prod 'bash -i -c "docker run -p 3002:80 --add-host=mongoservice:172.18.0.1 --network=adg-network -d --restart always --cpuset-cpus=0-5 --memory="512m" --name botsdediscord botsdediscord/web"'
       - name: Clear cache
         run: ssh prod 'bash -i -c "docker system prune -f"'

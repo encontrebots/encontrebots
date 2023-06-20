@@ -99,7 +99,7 @@ router.post('/:botid/genkey', async (req, res) => {
 		res.redirect(`/bots/${req.params.botid}/api?type=unknown`);
 	}
 	else {
-		const newKey = 'botsdediscordtoken_' + Math.random().toString(36).slice(2, 10);
+		const newKey = 'encontrebotstoken_' + Math.random().toString(36).slice(2, 10);
 		const botd = await model.findOne({ bot: req.params.botid });
 		botd.apikey = newKey;
 		botd.save();

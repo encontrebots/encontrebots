@@ -15,7 +15,7 @@ mongoose.connect(config.database.uri, async () => {
 		const embed = {
 			title: `${userinfo.username}`,
 			description: boti.descc,
-			url: 'https://botsdediscord.xyz/bots/' + boti.bot,
+			url: 'https://encontrebots.xyz/bots/' + boti.bot,
 			color: 0x3498DB,
 			thumbnail: {
 				url: userinfo.avatarURL
@@ -23,12 +23,12 @@ mongoose.connect(config.database.uri, async () => {
 			fields: [
 				{
 					name: 'Website',
-					value: boti.website || 'https://botsdediscord.xyz/bots/' + boti.bot,
+					value: boti.website || 'https://encontrebots.xyz/bots/' + boti.bot,
 					inline: true
 				},
 				{
 					name: 'Suporte',
-					value: boti.support || 'https://botsdediscord.xyz/bots/' + boti.bot + '/discord',
+					value: boti.support || 'https://encontrebots.xyz/bots/' + boti.bot + '/discord',
 					inline: true
 				}
 			]

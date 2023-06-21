@@ -43,5 +43,9 @@ bot.on('disconnect', async () => {
 	await bot.connect();
 });
 
+bot.on('shardDisconnect', async (e, sid) => {
+	await bot.shards.get(sid).connect();
+});
+
 bot.connect();
 module.exports = bot;

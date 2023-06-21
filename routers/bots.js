@@ -82,7 +82,7 @@ router.get('/:id', async (req, res) => {
 			servers: 0,
 			users: 0,
 			shards: 0,
-		}
+		};
 	}
 	botDB.avatar = botuser.avatarURL;
 	botDB.name = botuser.username;
